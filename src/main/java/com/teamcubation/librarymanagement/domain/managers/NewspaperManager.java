@@ -18,11 +18,12 @@ public class NewspaperManager {
 
     }
 
-    public boolean viewNewspaper(){
-        if (catalogue.isEmpty()){
-            return false;
-        }
-        return true;
+    public void viewNewspaper(){
+        System.out.println(catalogue);
+    }
+    public boolean viewNewspaperRequest(Newspaper entry){
+
+        return catalogue.contains(entry);
     }
 
 }
