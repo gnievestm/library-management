@@ -11,13 +11,11 @@ public class addNewspaperTest {
 
     @Test
     void addNewEntry(){
-        try {
+
             Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
             NewspaperManager createEntry = new NewspaperManager();
             createEntry.addNewspaper(entry);
-        }catch(Exception e){
 
-        }
 
     }
 }
