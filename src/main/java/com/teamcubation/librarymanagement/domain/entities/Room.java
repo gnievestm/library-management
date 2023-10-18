@@ -8,7 +8,7 @@ public class Room {
     private String address;
     private int id;
 
-    public Room(String name, String address, int id) {
+    public Room(String name, String address) {
         this.name = name;
         this.address = address;
         this.id = Room.roomIds++;
@@ -35,7 +35,7 @@ public class Room {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
-        return id == room.id && Objects.equals(name, room.name) && Objects.equals(address, room.address);
+        return name.equals(room.name) && address.equals(room.address);
     }
 
     @Override
