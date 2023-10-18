@@ -1,7 +1,6 @@
 package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Room;
-import com.teamcubation.librarymanagement.domain.entities.User;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomIncompleteFieldsException;
 
 import java.util.ArrayList;

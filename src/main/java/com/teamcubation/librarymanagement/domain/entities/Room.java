@@ -3,7 +3,7 @@ package com.teamcubation.librarymanagement.domain.entities;
 import java.util.Objects;
 
 public class Room {
-    static int roomIds=0;
+    private static int roomIds=0;
     private String name;
     private String address;
     private int id;
@@ -14,7 +14,7 @@ public class Room {
         this.id = Room.roomIds++;
     }
 
-    public static int getRoomIds() {
+    public int getRoomIds() {
         return roomIds;
     }
 
@@ -35,7 +35,7 @@ public class Room {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
-        return name.equals(room.name) && address.equals(room.address);
+        return id == room.id;
     }
 
     @Override
