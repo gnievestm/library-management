@@ -6,6 +6,8 @@ import com.teamcubation.librarymanagement.domain.exceptions.room.RoomIncompleteF
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomInvalidIdException;
 import com.teamcubation.librarymanagement.domain.managers.RoomManager;
 
+import java.util.List;
+
 public class RoomService {
 
     static RoomService instance;

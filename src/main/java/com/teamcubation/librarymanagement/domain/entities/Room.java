@@ -26,6 +26,7 @@ public class Room {
         } else {
             this.id = id;
         }
+
     }
     public Room(String name, String address) throws RoomIncompleteFieldsException {
 
@@ -37,6 +38,7 @@ public class Room {
         this.name = name;
         this.address = address;
         this.id = Room.roomIds++;
+
     }
 
     public String getName() {
@@ -62,5 +64,14 @@ public class Room {
     @Override
     public int hashCode() {
         return Objects.hash(name, address, id);
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

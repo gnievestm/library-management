@@ -7,23 +7,26 @@ import com.teamcubation.librarymanagement.domain.exceptions.room.RoomNotFoundExc
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class RoomManager {
 
     private List<Room> availableRooms;
     private List<Room> reservedRooms;
 
-    public RoomManager(){
-       availableRooms = new ArrayList<>();
-       reservedRooms = new ArrayList<>();
+    public RoomManager() {
+
+        availableRooms = new ArrayList<>();
+        reservedRooms = new ArrayList<>();
     }
 
-    public boolean existRoom(Room room){
+    public boolean existRoom(Room room) {
+
         return availableRooms.contains(room) || reservedRooms.contains(room);
     }
 
     public boolean addRoom(Room room) throws RoomAlreadyExistsException {
 
-        if(existRoom(room)){
+        if (existRoom(room)) {
             throw new RoomAlreadyExistsException();
         }
 
@@ -31,17 +34,35 @@ public class RoomManager {
         return true;
     }
 
+    public List<Room> getAvailableRooms() {
+
+        if (this.availableRooms.isEmpty()) {
+            return null;
+        }
+
+        return this.availableRooms;
+    }
+
+    public List<Room> getReservedRooms() {
+
+        if (this.reservedRooms.isEmpty()) {
+            return null;
+        }
+
+        return this.reservedRooms;
+    }
+
     public boolean reserveRoom(Room room) throws RoomIncompleteFieldsException, RoomNotFoundException, RoomAlreadyExistsException {
 
-        if(reservedRooms.contains(room)){
+        if (reservedRooms.contains(room)) {
             throw new RoomAlreadyExistsException();
         }
 
-        if(room.getName() == null || room.getAddress() == null){
+        if (room.getName() == null || room.getAddress() == null) {
             throw new RoomIncompleteFieldsException();
         }
 
-        if(availableRooms.contains(room)){
+        if (availableRooms.contains(room)) {
             reservedRooms.add(room);
             availableRooms.remove(room);
         } else {
