@@ -26,6 +26,7 @@ public class Room {
         } else {
             this.id = id;
         }
+
     }
     public Room(String name, String address) throws RoomIncompleteFieldsException {
 
@@ -37,6 +38,7 @@ public class Room {
         this.name = name;
         this.address = address;
         this.id = Room.roomIds++;
+
     }
 
     public String getName() {

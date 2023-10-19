@@ -2,6 +2,7 @@ package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Room;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomAlreadyExistsException;
+import com.teamcubation.librarymanagement.domain.exceptions.room.RoomAlreadyReservedException;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomIncompleteFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomNotFoundException;
 
@@ -18,7 +19,7 @@ public class RoomManager {
     }
 
     public boolean existRoom(Room room){
-        return availableRooms.contains(room) || reservedRooms.contains(room);
+        return availableRooms.contains(room);
     }
 
     public boolean addRoom(Room room) throws RoomAlreadyExistsException {
@@ -31,23 +32,22 @@ public class RoomManager {
         return true;
     }
 
-    public boolean reserveRoom(Room room) throws RoomIncompleteFieldsException, RoomNotFoundException, RoomAlreadyExistsException {
+    public boolean reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException {
 
         if(reservedRooms.contains(room)){
-            throw new RoomAlreadyExistsException();
+            throw new RoomAlreadyReservedException();
         }
 
-        if(room.getName() == null || room.getAddress() == null){
-            throw new RoomIncompleteFieldsException();
-        }
+        if (availableRooms.contains(room)) {
 
-        if(availableRooms.contains(room)){
             reservedRooms.add(room);
             availableRooms.remove(room);
+
+            return true;
+
         } else {
             throw new RoomNotFoundException();
         }
 
-        return true;
     }
 }
