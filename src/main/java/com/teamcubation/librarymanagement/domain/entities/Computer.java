@@ -1,18 +1,24 @@
 package com.teamcubation.librarymanagement.domain.entities;
 
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 
 public class Computer {
 
-    private static int comoputerID = 0;
+    private int comoputerID = 0;
     private String brand;
     private String model;
 
 
-    public Computer(String brand, String model) throws ComputerMissingFieldsException {
-        if (brand==null || model==null){
+    public Computer(int computerID, String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidID {
+        if (brand == null || model == null) {
             throw new ComputerMissingFieldsException();
         }
+        if (computerID <= 0) {
+            throw new ComputerInvalidID();
+        }
+        this.comoputerID = computerID;
         this.brand = brand;
         this.model = model;
     }
@@ -34,6 +40,6 @@ public class Computer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Computer computer = (Computer) o;
-        return brand.equals(computer.brand) && model.equals(computer.model);
+        return comoputerID == (computer.comoputerID) && brand.equals(computer.brand) && model.equals(computer.model);
     }
 }

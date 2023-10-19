@@ -10,23 +10,22 @@ public class ComputerManager {
 
     private List<Computer> computerList;
 
-    public ComputerManager(){
+    public ComputerManager() {
 
-        computerList= new ArrayList<>();
+        computerList = new ArrayList<>();
     }
 
-    public boolean addComputer (Computer computer) throws ComputerMissingFieldsException {
+    public boolean addComputer(Computer computer) {
 
-        if(computerList.contains(computer))
+        if (computerList.contains(computer))
             return false;
         computerList.add(computer);
         return true;
     }
 
-    public boolean existComputer(Computer computer){
-        return computerList.contains(computer);
+    public boolean existComputer(int computerID) {
+        return computerList.contains(computerID);
     }
-
 
 
 }
