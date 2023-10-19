@@ -1,4 +1,4 @@
-package com.teamcubation.librarymanagement.domain.exceptions.magazie;
+package com.teamcubation.librarymanagement.domain.exceptions.magazine;
 
 public class MagazineAttributeNameVoid extends Exception{
     public MagazineAttributeNameVoid(){

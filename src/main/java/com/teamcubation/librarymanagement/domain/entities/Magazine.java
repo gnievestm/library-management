@@ -1,9 +1,11 @@
 package com.teamcubation.librarymanagement.domain.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Magazine {
     private int id;
+    static int magazineIds = 0;
     private String name;
     private String date;
 
@@ -11,29 +13,35 @@ public class Magazine {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static int getMagazineIds() {
+        return magazineIds;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public Magazine(int id, String name, String date) {
-        this.id = id;
+    public Magazine(String name, String date) {
         this.name = name;
         this.date = date;
+        this.id = ++Magazine.magazineIds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Magazine magazine = (Magazine) o;
+        return Objects.equals(name, magazine.name) && Objects.equals(date, magazine.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, date);
     }
 }
