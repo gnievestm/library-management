@@ -1,21 +1,42 @@
 package com.teamcubation.librarymanagement.domain.entities;
 
+import com.teamcubation.librarymanagement.domain.exceptions.room.RoomIncompleteFieldsException;
+import com.teamcubation.librarymanagement.domain.exceptions.room.RoomInvalidIdException;
+
 import java.util.Objects;
 
 public class Room {
-    private static int roomIds=0;
+    private static int roomIds = 0;
     private String name;
     private String address;
     private int id;
 
-    public Room(String name, String address) {
+    public Room(int id, String name, String address) throws RoomIncompleteFieldsException, RoomInvalidIdException {
+
+
+        if (name == null || address == null || name.isEmpty() || address.isEmpty()) {
+            throw new RoomIncompleteFieldsException();
+        }
+
+        this.name = name;
+        this.address = address;
+
+        if (id<=0) {
+            throw new RoomInvalidIdException();
+        } else {
+            this.id = id;
+        }
+    }
+    public Room(String name, String address) throws RoomIncompleteFieldsException {
+
+
+        if (name == null || address == null || name.isEmpty() || address.isEmpty()) {
+            throw new RoomIncompleteFieldsException();
+        }
+
         this.name = name;
         this.address = address;
         this.id = Room.roomIds++;
-    }
-
-    public int getRoomIds() {
-        return roomIds;
     }
 
     public String getName() {
