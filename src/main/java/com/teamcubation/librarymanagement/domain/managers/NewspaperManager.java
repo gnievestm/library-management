@@ -53,5 +53,10 @@ public class NewspaperManager {
         }
     }
 
+    public boolean searchForNewspaperHeadline(String headline){
+
+        return catalogue.stream().allMatch(Newspaper-> Newspaper.getHeadline().equals(headline));
+    }
+
 
 }
