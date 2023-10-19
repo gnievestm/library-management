@@ -10,22 +10,24 @@ public class BookService {
 
     private BookManager BookManager;
 
-    public static BookService getInstance(){
-        if(instance ==null)
-            instance=new BookService();
+    public static BookService getInstance() {
+        if (instance == null)
+            instance = new BookService();
         return instance;
     }
 
-    private BookService(){
-        this.BookManager=new BookManager();
+    private BookService() {
+        this.BookManager = new BookManager();
     }
 
-    public void addBook(String title, String autor,String publishYear) throws BookSomeEmptyAttributeException {
-        Book book=new Book(title,autor,publishYear);
+    public void addBook(String title, String author, String publishYear) throws BookSomeEmptyAttributeException {
+        if (title.isEmpty() || author.isEmpty() || publishYear.isEmpty())
+            throw new BookSomeEmptyAttributeException();
+        Book book = new Book(title, author, publishYear);
         this.BookManager.addBook(book);
     }
 
-    public boolean existBook(Book book){
+    public boolean existBook(Book book) {
         return BookManager.existBook(book);
     }
 }

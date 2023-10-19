@@ -15,8 +15,7 @@ public class BookManager {
     }
 
     public void addBook(Book book) throws BookSomeEmptyAttributeException {
-        if(book.getTitle().isEmpty() || book.getAutor().isEmpty() || book.getPublishYear().isEmpty())
-            throw new BookSomeEmptyAttributeException();
+
         books.add(book);
     }
 

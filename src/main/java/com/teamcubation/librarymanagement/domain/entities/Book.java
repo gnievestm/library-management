@@ -2,46 +2,47 @@ package com.teamcubation.librarymanagement.domain.entities;
 
 import java.util.Objects;
 
+import java.time.*;
+
 public class Book {
 
-    static int id=0;
-    private String autor;
-
+    static int predefinedBookId = 0;
+    private String author;
     private String title;
-    private String publishYear;
+    private Year yearOfPublishing;
 
-    public Book(String title,String autor,String publishYear){
-        this.id=Book.id++;
-        this.autor=autor;
-        this.title=title;
-        this.publishYear=publishYear;
+    public Book(String title, String autor, String yearOfPublishing) {
+        this.predefinedBookId = Book.predefinedBookId++;
+        this.author = autor;
+        this.title = title;
+        this.yearOfPublishing = Year.parse(yearOfPublishing);
     }
 
-    public static int getId() {
-        return id;
+    public Year getYearOfPublishing() {
+        return yearOfPublishing;
     }
 
-    public String getAutor() {
-        return autor;
+    private int getPredefinedBookId() {
+        return predefinedBookId;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getPublishYear() {
-        return publishYear;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Book book)) return false;
-        return Objects.equals(autor, book.autor) && Objects.equals(title, book.title) && Objects.equals(publishYear, book.publishYear);
+        return Objects.equals(getPredefinedBookId(), book.getPredefinedBookId()) && Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getTitle(), book.getTitle()) && Objects.equals(yearOfPublishing, book.yearOfPublishing);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(autor, title, publishYear);
+        return Objects.hash(getAuthor(), getTitle(), yearOfPublishing);
     }
 }
