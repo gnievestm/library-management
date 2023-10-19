@@ -1,7 +1,7 @@
 package com.teamcubation.librarymanagement.domain.exceptions.magazine;
 
-public class MagazineAttributesVoid extends Exception {
-    public MagazineAttributesVoid() {
+public class MagazineAttributeMissingException extends Exception {
+    public MagazineAttributeMissingException() {
         super("Your magazine attributes are void");
     }
 }

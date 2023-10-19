@@ -13,9 +13,6 @@ public class Magazine {
         return id;
     }
 
-    public static int getMagazineIds() {
-        return magazineIds;
-    }
 
     public String getName() {
         return name;
@@ -37,11 +34,11 @@ public class Magazine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Magazine magazine = (Magazine) o;
-        return Objects.equals(name, magazine.name) && Objects.equals(date, magazine.date);
+        return id == magazine.id && Objects.equals(name, magazine.name) && Objects.equals(date, magazine.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, date);
+        return Objects.hash(id, name, date);
     }
 }
