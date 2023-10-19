@@ -9,15 +9,24 @@ import java.util.Date;
 
 public class addNewspaperTest {
 
+    
     @Test
-    void addNewEntry(){
+    void addNewEntry() throws MissingDateOrHeadline {
+
         try {
             Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
-            NewspaperManager createEntry = new NewspaperManager();
-            createEntry.addNewspaper(entry);
-        }catch(Exception e){
+            if (entry.getDate().isEmpty() || entry.getHeadline().isEmpty()) {
+                throw new MissingDateOrHeadline();
+            } else {
+                NewspaperManager manageEntry = new NewspaperManager();
+                manageEntry.addNewspaper(entry);
+            }
+        } catch (MissingDateOrHeadline e) {
 
         }
 
+
     }
+
+    
 }
