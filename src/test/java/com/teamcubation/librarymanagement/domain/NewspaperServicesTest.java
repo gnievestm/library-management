@@ -2,6 +2,7 @@ package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.entities.Newspaper;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.MissingDateOrHeadline;
+import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperAlreadyBorrowed;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperNotFound;
 import com.teamcubation.librarymanagement.domain.managers.NewspaperManager;
 import org.junit.jupiter.api.Test;
@@ -25,8 +26,6 @@ public class NewspaperServicesTest {
         } catch (MissingDateOrHeadline e) {
 
         }
-
-
     }
 
     @Test
@@ -37,7 +36,6 @@ public class NewspaperServicesTest {
         manageEntry.addNewspaper(entry);
 
         manageEntry.viewNewspaper();
-
     }
 
     @Test
@@ -57,7 +55,31 @@ public class NewspaperServicesTest {
         } catch (NewspaperNotFound e) {
 
         }
+    }
 
+    @Test
+    void borrowNewspaper() throws NewspaperAlreadyBorrowed {
 
+        Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
+        NewspaperManager manageEntry = new NewspaperManager();
+
+        assert (manageEntry.borrowNewspaper(entry));
+    }
+    @Test
+    void borrowNewspaperException() throws NewspaperAlreadyBorrowed {
+
+        Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
+        NewspaperManager manageEntry = new NewspaperManager();
+        manageEntry.borrowNewspaper(entry);
+
+        assert (manageEntry.borrowNewspaper(entry));
+    }
+
+    @Test
+    void returnBorrowNewspaper() throws NewspaperNotFound{
+
+        Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
+        NewspaperManager manageEntry = new NewspaperManager();
+        manageEntry.returnBorrowNewspaper(entry);
     }
 }
