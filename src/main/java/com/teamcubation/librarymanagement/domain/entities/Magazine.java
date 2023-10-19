@@ -4,26 +4,24 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Magazine {
-    private int id;
+    private final int id;
     static int magazineIds = 0;
-    private String name;
-    private String date;
+    private final String name;
+    private final Date date;
 
     public int getId() {
         return id;
     }
 
-
     public String getName() {
         return name;
     }
 
-
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public Magazine(String name, String date) {
+    public Magazine(String name, Date date) {
         this.name = name;
         this.date = date;
         this.id = ++Magazine.magazineIds;

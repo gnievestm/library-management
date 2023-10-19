@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MagazineManager {
-    private List<Magazine> magazines = new ArrayList<>();
+    private final List<Magazine> magazines = new ArrayList<>();
 
     public List<Magazine> getMagazines() {
         return magazines;
     }
-
 
     public boolean addMagazine(Magazine magazine) {
         if (magazines.contains(magazine))
@@ -25,8 +24,7 @@ public class MagazineManager {
         return magazines.contains(magazine);
     }
 
-    public int sizeMagazine() {
+    public int magazinesCount() {
         return magazines.size();
     }
-
 }

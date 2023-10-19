@@ -1,14 +1,14 @@
 package com.teamcubation.librarymanagement.service;
 
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
-import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeDateMissingException;
-import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeNameMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
 import com.teamcubation.librarymanagement.domain.managers.MagazineManager;
 
+import java.util.Date;
+
 public class MagazineService {
     static MagazineService instance;
-    private MagazineManager magazineManager;
+    private final MagazineManager magazineManager;
 
     public static MagazineService getInstance() {
         if (instance == null)
@@ -22,18 +22,13 @@ public class MagazineService {
         this.magazineManager = new MagazineManager();
     }
 
-    public void addMagazine(String magazineName, String date) throws MagazineAttributeNameMissingException, MagazineAttributeMissingException, MagazineAttributeDateMissingException {
-        if (magazineName == null && date == null && magazineName == "" && date == "") {
+    public boolean addMagazine(String magazineName, Date date) throws MagazineAttributeMissingException {
+        if (magazineName == null || date == null || magazineName.isEmpty()) {
             throw new MagazineAttributeMissingException();
         }
-        if (magazineName == null && magazineName == "") {
-            throw new MagazineAttributeNameMissingException();
-        }
-        if (date == null && date == "") {
-            throw new MagazineAttributeDateMissingException();
-        }
+
         Magazine magazine = new Magazine(magazineName, date);
-        this.magazineManager.addMagazine(magazine);
+        return this.magazineManager.addMagazine(magazine);
     }
 
     public boolean existMagazine(Magazine magazine) {
@@ -41,7 +36,7 @@ public class MagazineService {
     }
 
     public int sizeMagazine() {
-        return magazineManager.sizeMagazine();
+        return magazineManager.magazinesCount();
     }
 
 }
