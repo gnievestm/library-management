@@ -1,7 +1,6 @@
 package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.entities.User;
-import com.teamcubation.librarymanagement.domain.managers.UserManager;
 import com.teamcubation.librarymanagement.service.UserService;
 import org.junit.jupiter.api.Test;
 
