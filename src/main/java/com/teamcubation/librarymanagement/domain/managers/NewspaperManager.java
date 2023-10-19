@@ -47,10 +47,8 @@ public class NewspaperManager {
             inUse.remove(newspaper);
             catalogue.add(newspaper);
             return true;
-        } else {
-
-            return false;
         }
+        return false;
     }
 
     public boolean searchForNewspaperHeadline(String headline){

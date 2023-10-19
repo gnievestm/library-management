@@ -74,15 +74,17 @@ public class NewspaperServicesTest {
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.borrowNewspaper(entry);
 
-        assert (manageEntry.borrowNewspaper(entry));
+        assertTrue(manageEntry.borrowNewspaper(entry), "The Newspaper is successfully borrowed");
     }
 
     @Test
-    void returnBorrowNewspaper() throws NewspaperNotFound{
+    void returnBorrowNewspaper() throws NewspaperNotFound, NewspaperAlreadyBorrowed {
 
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
-        manageEntry.returnBorrowNewspaper(entry);
+        manageEntry.borrowNewspaper(entry);
+        assertTrue(manageEntry.returnBorrowNewspaper(entry), "The newspaper was successfully returned");
+
     }
 
     @Test
