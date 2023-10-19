@@ -20,10 +20,10 @@ public class BookService {
         this.BookManager = new BookManager();
     }
 
-    public void addBook(String title, String author, String publishYear) throws BookSomeEmptyAttributeException {
-        if (title.isEmpty() || author.isEmpty() || publishYear.isEmpty())
+    public void addBook(int id, String title, String author, String publishYear) throws BookSomeEmptyAttributeException {
+        if (id == 0 || title.isEmpty() || author.isEmpty() || publishYear.isEmpty())
             throw new BookSomeEmptyAttributeException();
-        Book book = new Book(title, author, publishYear);
+        Book book = new Book(id, title, author, publishYear);
         this.BookManager.addBook(book);
     }
 

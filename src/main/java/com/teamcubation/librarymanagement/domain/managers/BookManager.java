@@ -10,16 +10,18 @@ public class BookManager {
 
     private List<Book> books;
 
-    public BookManager(){
-        books=new ArrayList<>();
+    public BookManager() {
+        books = new ArrayList<>();
     }
 
-    public void addBook(Book book) throws BookSomeEmptyAttributeException {
-
+    public boolean addBook(Book book) throws BookSomeEmptyAttributeException {
+        if (books.contains(book))
+            return false;
         books.add(book);
+        return true;
     }
 
-    public boolean existBook(Book book){
+    public boolean existBook(Book book) {
         return books.contains(book);
     }
 }

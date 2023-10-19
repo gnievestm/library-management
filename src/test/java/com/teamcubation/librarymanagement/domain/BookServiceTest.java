@@ -12,8 +12,8 @@ public class BookServiceTest {
     @Test
     public void addBookCorrectBehavior() throws BookSomeEmptyAttributeException {
         BookService bookService = BookService.getInstance();
-        bookService.addBook("title1", "pepito", "2023");
-        Book book = new Book("title1", "pepito", "2023");
+        bookService.addBook(1, "title1", "pepito", "2023");
+        Book book = new Book(1, "title1", "pepito", "2023");
 
         assert (bookService.existBook(book));
     }
@@ -22,15 +22,15 @@ public class BookServiceTest {
     public void addBookWithSomeEmptyAttribute() throws BookSomeEmptyAttributeException {
         BookService bookService = BookService.getInstance();
         BookSomeEmptyAttributeException exception = assertThrows(BookSomeEmptyAttributeException.class, () -> {
-            bookService.addBook("", "pedro", "2023");
+            bookService.addBook(1, "", "pedro", "2023");
         });
     }
 
     @Test
     public void existBookTest() throws BookSomeEmptyAttributeException {
         BookService bookService = BookService.getInstance();
-        bookService.addBook("title1", "pepito", "2023");
-        Book bookToSearch = new Book("title1", "pepito", "2023");
+        bookService.addBook(1, "title1", "pepito", "2023");
+        Book bookToSearch = new Book(1, "title1", "pepito", "2023");
         boolean found = bookService.existBook(bookToSearch);
 
         assert (found);

@@ -6,16 +6,28 @@ import java.time.*;
 
 public class Book {
 
-    static int predefinedBookId = 0;
+    private static int predefinedBookId = 0;
+    private int bookId;
     private String author;
     private String title;
     private Year yearOfPublishing;
 
-    public Book(String title, String autor, String yearOfPublishing) {
-        this.predefinedBookId = Book.predefinedBookId++;
-        this.author = autor;
+    public Book(String title, String author, String yearOfPublishing) {
+        this.bookId = Book.predefinedBookId++;
+        this.author = author;
         this.title = title;
         this.yearOfPublishing = Year.parse(yearOfPublishing);
+    }
+
+    public Book(int id, String title, String author, String yearOfPublishing) {
+        this.bookId = id;
+        this.author = author;
+        this.title = title;
+        this.yearOfPublishing = Year.parse(yearOfPublishing);
+    }
+
+    private int getBookId() {
+        return bookId;
     }
 
     public Year getYearOfPublishing() {
@@ -34,15 +46,16 @@ public class Book {
         return title;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Book book)) return false;
-        return Objects.equals(getPredefinedBookId(), book.getPredefinedBookId()) && Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getTitle(), book.getTitle()) && Objects.equals(yearOfPublishing, book.yearOfPublishing);
+        return bookId == ((Book) o).bookId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAuthor(), getTitle(), yearOfPublishing);
+        return Objects.hash(getBookId(), getAuthor(), getTitle(), getYearOfPublishing());
     }
 }
