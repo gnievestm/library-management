@@ -32,7 +32,7 @@ public class Magazine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Magazine magazine = (Magazine) o;
-        return id == magazine.id && Objects.equals(name, magazine.name) && Objects.equals(date, magazine.date);
+        return id == magazine.id;
     }
 
     @Override
