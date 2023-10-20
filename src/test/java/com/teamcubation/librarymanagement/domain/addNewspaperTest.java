@@ -24,9 +24,8 @@ public class addNewspaperTest {
     void addNewEntryWithOutHeadlineOrDate() throws MissingDateOrHeadline {
 
         Newspaper entry = new Newspaper(1, "", "2000-07-23");
-        NewspaperManager manageEntry = new NewspaperManager();
-        assertTrue(manageEntry.addNewspaper(entry), "the upload the entry is negated");
+        NewspaperManager manageEntry = new NewspaperManager();assertTrue(manageEntry.addNewspaper(entry), "the upload the entry is negated");
     }
 
-    
+
 }
