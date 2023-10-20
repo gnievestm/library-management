@@ -1,6 +1,7 @@
 package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Book;
+import com.teamcubation.librarymanagement.domain.entities.User;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
 
 import java.util.ArrayList;
@@ -24,4 +25,8 @@ public class BookManager {
     public boolean existBook(Book book) {
         return books.contains(book);
     }
+    public int countBook(){
+        return books.size();
+    }
+
 }

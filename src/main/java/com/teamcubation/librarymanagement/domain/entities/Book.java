@@ -5,8 +5,7 @@ import java.util.Objects;
 import java.time.*;
 
 public class Book {
-
-    private static int predefinedBookId = 0;
+    static int predefinedBookId = 0;
     private int bookId;
     private String author;
     private String title;
@@ -14,13 +13,6 @@ public class Book {
 
     public Book(String title, String author, String yearOfPublishing) {
         this.bookId = Book.predefinedBookId++;
-        this.author = author;
-        this.title = title;
-        this.yearOfPublishing = Year.parse(yearOfPublishing);
-    }
-
-    public Book(int id, String title, String author, String yearOfPublishing) {
-        this.bookId = id;
         this.author = author;
         this.title = title;
         this.yearOfPublishing = Year.parse(yearOfPublishing);
@@ -34,7 +26,7 @@ public class Book {
         return yearOfPublishing;
     }
 
-    private int getPredefinedBookId() {
+    public static int getPredefinedBookId() {
         return predefinedBookId;
     }
 
@@ -45,7 +37,6 @@ public class Book {
     public String getTitle() {
         return title;
     }
-
 
     @Override
     public boolean equals(Object o) {
