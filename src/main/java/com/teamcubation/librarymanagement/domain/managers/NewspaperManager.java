@@ -10,15 +10,18 @@ public class NewspaperManager {
 
     private List<Newspaper> catalogue;
 
+    public  NewspaperManager(){
+        catalogue = new ArrayList<>();
+    }
+
     public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadline {
 
         if (newEntry.getDate().equals("") || newEntry.getHeadline().equals("")) {
-            throw new MissingDateOrHeadline();
+            return true;
         } else {
             catalogue.add(newEntry);
+            return true;
         }
-            
-        return true;
     }
 
 
