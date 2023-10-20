@@ -1,6 +1,8 @@
 package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Newspaper;
+import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.MissingDateOrHeadline;
+import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperNotFound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +15,23 @@ public class NewspaperManager {
         catalogue = new ArrayList<>();
     }
 
-    public void addNewspaper(Newspaper newEntry){
+    public void addNewspaper(Newspaper newEntry) {
         catalogue.add(newEntry);
 
     }
 
-    public void viewNewspaper(){
-        System.out.println(catalogue);
+    public boolean viewNewspaper() {
+        return !catalogue.isEmpty();
     }
-    public boolean viewNewspaperRequest(Newspaper entry){
 
+    public boolean viewNewspaperRequest(Newspaper entry) throws NewspaperNotFound, MissingDateOrHeadline {
+        try {
+            if (entry.getDate().isEmpty() || entry.getHeadline().isEmpty()) {
+                throw new NewspaperNotFound();
+            }
+        } catch (NewspaperNotFound e) {
+
+        }
         return catalogue.contains(entry);
     }
 

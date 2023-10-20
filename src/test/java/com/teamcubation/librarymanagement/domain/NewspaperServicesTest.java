@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class NewspaperServicesTest {
 
     @Test
@@ -31,30 +33,18 @@ public class NewspaperServicesTest {
 
     @Test
     void viewNewspaper() throws MissingDateOrHeadline {
-
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
-
-        manageEntry.viewNewspaper();
+        assertTrue(manageEntry.viewNewspaper(), "Showing available newspapers");
     }
 
     @Test
     void viewNewspaperRequest() throws NewspaperNotFound, MissingDateOrHeadline {
-
-        try {
-            Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
-            if (entry.getDate().isEmpty() || entry.getHeadline().isEmpty()) {
-                throw new NewspaperNotFound();
-            } else {
-                NewspaperManager manageEntry = new NewspaperManager();
-                manageEntry.addNewspaper(entry);
-
-                manageEntry.viewNewspaperRequest(entry);
-            }
-
-        } catch (NewspaperNotFound e) {
-
-        }
+        Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
+        NewspaperManager manageEntry = new NewspaperManager();
+        manageEntry.addNewspaper(entry);
+        assertTrue(manageEntry.viewNewspaperRequest(entry), "Returning matches");
+        
     }
 }
