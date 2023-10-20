@@ -12,7 +12,7 @@ public class NewspaperManager {
 
     public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadline {
         try {
-            if (newEntry.getDate().isEmpty() || newEntry.getHeadline().equals("")) {
+            if (newEntry.getDate().equals("") || newEntry.getHeadline().equals("")) {
                 throw new MissingDateOrHeadline();
             } else {
                 catalogue.add(newEntry);
