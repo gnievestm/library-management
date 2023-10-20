@@ -17,21 +17,20 @@ public class NewspaperServicesTest {
     @Test
     void addNewEntry() throws MissingDateOrHeadline {
 
-        try {
-            Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
-            if (entry.getDate().isEmpty() || entry.getHeadline().isEmpty()) {
-                throw new MissingDateOrHeadline();
-            } else {
-                NewspaperManager manageEntry = new NewspaperManager();
-                manageEntry.addNewspaper(entry);
-            }
-        } catch (MissingDateOrHeadline e) {
+        Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
+        NewspaperManager manageEntry = new NewspaperManager();
+        assertTrue(manageEntry.addNewspaper(entry), "The upload of the entry was succeeded");
+    }
+    @Test
+    void addNewEntryWithOutHeadlineOrDate() throws MissingDateOrHeadline {
 
-        }
+        Newspaper entry = new Newspaper(1, "", "2000-07-23");
+        NewspaperManager manageEntry = new NewspaperManager();
+        assertTrue(manageEntry.addNewspaper(entry), "the upload the entry is negated");
     }
 
     @Test
-    void viewNewspaper() {
+    void viewNewspaper() throws MissingDateOrHeadline {
 
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
@@ -41,7 +40,7 @@ public class NewspaperServicesTest {
     }
 
     @Test
-    void viewNewspaperRequest() throws NewspaperNotFound {
+    void viewNewspaperRequest() throws NewspaperNotFound, MissingDateOrHeadline {
 
         try {
             Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
@@ -67,6 +66,7 @@ public class NewspaperServicesTest {
 
         assert (manageEntry.borrowNewspaper(entry));
     }
+
     @Test
     void borrowNewspaperException() throws NewspaperAlreadyBorrowed {
 
@@ -88,7 +88,7 @@ public class NewspaperServicesTest {
     }
 
     @Test
-    void searchForNewspaperHeadline(){
+    void searchForNewspaperHeadline() throws MissingDateOrHeadline {
 
         Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
         NewspaperManager manageEntry = new NewspaperManager();
