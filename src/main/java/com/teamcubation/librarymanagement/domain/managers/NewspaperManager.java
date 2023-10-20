@@ -25,14 +25,13 @@ public class NewspaperManager {
     }
 
     public boolean viewNewspaperRequest(Newspaper entry) throws NewspaperNotFound, MissingDateOrHeadline {
-        try {
-            if (entry.getDate().isEmpty() || entry.getHeadline().isEmpty()) {
-                throw new NewspaperNotFound();
-            }
-        } catch (NewspaperNotFound e) {
 
+        if (entry.getDate().isEmpty() || entry.getHeadline().isEmpty()) {
+            return true;
+        }else {
+            return catalogue.contains(entry);
         }
-        return catalogue.contains(entry);
+
     }
 
 }
