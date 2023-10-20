@@ -35,13 +35,13 @@ public class NewspaperServicesTest {
         manageEntry.addNewspaper(entry);
         assertTrue(manageEntry.viewNewspaper(), "Showing available newspapers");
     }
-
     @Test
-    void viewNewspaperRequest() throws NewspaperNotFound, MissingDateOrHeadline {
-        Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
+    void viewNewspaperExist() throws MissingDateOrHeadline {
+        Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
-        assertTrue(manageEntry.viewNewspaperRequest(entry), "Returning matches");
-        
+        assertTrue(manageEntry.viewNewspaperExist(entry), "The newspaper is available");
     }
+
+
 }
