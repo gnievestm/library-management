@@ -1,10 +1,7 @@
 package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.entities.Room;
-import com.teamcubation.librarymanagement.domain.exceptions.room.RoomAlreadyExistsException;
-import com.teamcubation.librarymanagement.domain.exceptions.room.RoomIncompleteFieldsException;
-import com.teamcubation.librarymanagement.domain.exceptions.room.RoomInvalidIdException;
-import com.teamcubation.librarymanagement.domain.exceptions.room.RoomNotFoundException;
+import com.teamcubation.librarymanagement.domain.exceptions.room.*;
 import com.teamcubation.librarymanagement.domain.managers.RoomManager;
 import com.teamcubation.librarymanagement.service.RoomService;
 import org.junit.jupiter.api.Test;
@@ -60,7 +57,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    void listRooms() throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomAlreadyExistsException, RoomNotFoundException {
+    void listRooms() throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomNotFoundException, RoomAlreadyReservedException, RoomAlreadyExistsException {
 
         List <Room> testAvailableRooms = new ArrayList<>();
         Room room1 = new Room(1, "name", "address");
@@ -90,4 +87,5 @@ public class RoomServiceTest {
         assertNull(roomManager.getAvailableRooms());
 
     }
+
 }
