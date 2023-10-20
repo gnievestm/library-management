@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.Date;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class addNewspaperTest {
@@ -24,7 +25,8 @@ public class addNewspaperTest {
     void addNewEntryWithOutHeadlineOrDate() throws MissingDateOrHeadline {
 
         Newspaper entry = new Newspaper(1, "", "2000-07-23");
-        NewspaperManager manageEntry = new NewspaperManager();assertTrue(manageEntry.addNewspaper(entry), "the upload the entry is negated");
+        NewspaperManager manageEntry = new NewspaperManager();
+        assertFalse(manageEntry.addNewspaper(entry), "the upload the entry is negated");
     }
 
 
