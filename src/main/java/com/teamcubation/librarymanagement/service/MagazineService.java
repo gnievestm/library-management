@@ -1,10 +1,7 @@
 package com.teamcubation.librarymanagement.service;
 
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
-import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeDateMissingException;
-import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeNameMissingException;
-import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
-import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineYourDoesNotExistException;
+import com.teamcubation.librarymanagement.domain.exceptions.magazine.*;
 import com.teamcubation.librarymanagement.domain.managers.MagazineManager;
 
 public class MagazineService {

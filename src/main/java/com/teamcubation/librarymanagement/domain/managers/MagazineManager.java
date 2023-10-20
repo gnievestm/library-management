@@ -53,6 +53,7 @@ public class MagazineManager {
         return magazines.size();
     }
 
+
     public boolean borrowMagazine(Magazine magazine) throws MagazineNotAvailableException {
         for (int index = 0; index < magazinesAvailable.size(); index++) {
             if (magazinesAvailable.contains(magazine)) {
@@ -62,11 +63,12 @@ public class MagazineManager {
                 return true;
             }
         }
-    throw new MagazineNotAvailableException();
+        throw new MagazineNotAvailableException();
     }
     public boolean addMagazineAvailable(Magazine magazine){
         BorrowMagazine borrowMagazine = new BorrowMagazine(magazine, "available");
         magazinesAvailable.add(borrowMagazine);
         return true;
     }
+}
 }

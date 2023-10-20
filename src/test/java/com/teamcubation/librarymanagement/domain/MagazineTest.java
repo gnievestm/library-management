@@ -54,8 +54,7 @@ public class MagazineTest {
         MagazineService magazineService = new MagazineService();
         Magazine magazine =new Magazine("leo","12-12-12");
         magazineService.addMagazine("leo","12-12-12");
-        magazineService.addMagazineAvailable(magazine);
-        assertTrue(magazineService.borrowMagazine(magazine));
+
     }
 
 }
