@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class NewspaperServicesTest {
 
     @Test
@@ -63,8 +65,9 @@ public class NewspaperServicesTest {
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
 
-        assert (manageEntry.borrowNewspaper(entry));
+        assertTrue(manageEntry.borrowNewspaper(entry), "The Newspaper is successfully borrowed");
     }
+
     @Test
     void borrowNewspaperException() throws NewspaperAlreadyBorrowed {
 
@@ -72,14 +75,7 @@ public class NewspaperServicesTest {
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.borrowNewspaper(entry);
 
-        assert (manageEntry.borrowNewspaper(entry));
+        assertTrue(manageEntry.borrowNewspaper(entry),"The Newspaper is already borrowed");
     }
 
-    @Test
-    void returnBorrowNewspaper() throws NewspaperNotFound{
-
-        Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
-        NewspaperManager manageEntry = new NewspaperManager();
-        manageEntry.returnBorrowNewspaper(entry);
-    }
 }

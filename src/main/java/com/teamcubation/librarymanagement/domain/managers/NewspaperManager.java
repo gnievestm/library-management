@@ -33,25 +33,13 @@ public class NewspaperManager {
     public boolean borrowNewspaper(Newspaper newspaper) throws NewspaperAlreadyBorrowed {
 
         if (inUse.contains(newspaper)) {
-            throw new NewspaperAlreadyBorrowed();
+            return true;
         } else {
             inUse.add(newspaper);
         }
-
-        return true;
+        return false;
     }
 
-    public boolean returnBorrowNewspaper(Newspaper newspaper) throws NewspaperNotFound {
-
-        if (inUse.contains(newspaper)) {
-            inUse.remove(newspaper);
-            catalogue.add(newspaper);
-            return true;
-        } else {
-
-            return false;
-        }
-    }
 
 
 }
