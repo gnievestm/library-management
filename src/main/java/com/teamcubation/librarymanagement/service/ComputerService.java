@@ -8,9 +8,7 @@ import com.teamcubation.librarymanagement.domain.entities.Computer;
 public class ComputerService {
 
     static ComputerService instance;
-
     private ComputerManager computerManager;
-
     public static ComputerService getInstance() {
 
         if (instance == null)

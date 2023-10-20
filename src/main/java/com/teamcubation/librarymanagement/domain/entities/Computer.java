@@ -9,8 +9,7 @@ public class Computer {
     private int comoputerID = 0;
     private String brand;
     private String model;
-
-
+    
     public Computer(int computerID, String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidID {
         if (brand == null || model == null) {
             throw new ComputerMissingFieldsException();
