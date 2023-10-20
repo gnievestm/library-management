@@ -4,6 +4,7 @@ import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeDateMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeNameMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
+import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineYourDoesNotExistException;
 import com.teamcubation.librarymanagement.domain.managers.MagazineManager;
 
 public class MagazineService {
@@ -43,5 +44,19 @@ public class MagazineService {
     public int sizeMagazine() {
         return magazineManager.sizeMagazine();
     }
+    public boolean addMagazineAvailable(Magazine magazine) throws MagazineYourDoesNotExistException {
+        if(magazineManager.existMagazine(magazine)){
+            return addMagazineAvailable(magazine);
+        }
+        throw new MagazineYourDoesNotExistException();
+    }
+    public boolean borrowMagazine(Magazine magazine) throws MagazineYourDoesNotExistException {
+        if(magazineManager.existMagazine(magazine)){
+            return borrowMagazine(magazine);
+        }
+        throw new MagazineYourDoesNotExistException();
+    }
+
+
 
 }

@@ -2,9 +2,11 @@ package com.teamcubation.librarymanagement.domain;
 
 
 
+import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeDateMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeNameMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
+import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineYourDoesNotExistException;
 import com.teamcubation.librarymanagement.domain.managers.MagazineManager;
 import com.teamcubation.librarymanagement.service.MagazineService;
 import org.junit.jupiter.api.Test;
@@ -46,6 +48,14 @@ public class MagazineTest {
             magazineService.addMagazine( null, "12-12-2002");
         });
         assertEquals(exception.getMessage(), "Your Name for magazine is void");
+    }
+    @Test
+    public void MagazineBorrowTest() throws MagazineYourDoesNotExistException, MagazineAttributeDateMissingException, MagazineAttributeNameMissingException, MagazineAttributeMissingException {
+        MagazineService magazineService = new MagazineService();
+        Magazine magazine =new Magazine("leo","12-12-12");
+        magazineService.addMagazine("leo","12-12-12");
+        magazineService.addMagazineAvailable(magazine);
+        assertTrue(magazineService.borrowMagazine(magazine));
     }
 
 }
