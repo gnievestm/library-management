@@ -15,9 +15,9 @@ public class NewspaperManager {
         catalogue = new ArrayList<>();
     }
 
-    public void addNewspaper(Newspaper newEntry) {
+    public boolean addNewspaper(Newspaper newEntry) {
         catalogue.add(newEntry);
-
+        return true;
     }
 
     public boolean viewNewspaper() {
