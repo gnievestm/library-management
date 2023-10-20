@@ -30,18 +30,17 @@ public class NewspaperServicesTest {
     }
 
     @Test
-    void viewNewspaper() {
+    void viewNewspaper() throws MissingDateOrHeadline {
 
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
 
         manageEntry.viewNewspaper();
-
     }
 
     @Test
-    void viewNewspaperRequest() throws NewspaperNotFound {
+    void viewNewspaperRequest() throws NewspaperNotFound, MissingDateOrHeadline {
 
         try {
             Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
@@ -57,7 +56,5 @@ public class NewspaperServicesTest {
         } catch (NewspaperNotFound e) {
 
         }
-
-
     }
 }
