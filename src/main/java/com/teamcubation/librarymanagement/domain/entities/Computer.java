@@ -6,7 +6,7 @@ import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInv
 
 public class Computer {
 
-    private int comoputerID = 0;
+    private int computerID = 0;
     private String brand;
     private String model;
     
@@ -17,13 +17,13 @@ public class Computer {
         if (computerID <= 0) {
             throw new ComputerInvalidID();
         }
-        this.comoputerID = computerID;
+        this.computerID = computerID;
         this.brand = brand;
         this.model = model;
     }
 
     public int getComputerID() {
-        return comoputerID;
+        return computerID;
     }
 
     public String getBrand() {
@@ -39,6 +39,6 @@ public class Computer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Computer computer = (Computer) o;
-        return comoputerID == (computer.comoputerID) && brand.equals(computer.brand) && model.equals(computer.model);
+        return computerID == (computer.computerID) && brand.equals(computer.brand) && model.equals(computer.model);
     }
 }

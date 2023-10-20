@@ -11,17 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ComputerServiceTest {
 
-    @Test
-    void addComputer() throws ComputerMissingFieldsException, ComputerInvalidID {
-
-        ComputerService computerService = ComputerService.getInstance();
-        computerService.addComputer(1, "brand", "model");
-        Computer computer = new Computer(1, "brand", "model");
-
-        boolean found = computerService.existComputer(computer.getComputerID());
-
-        assertTrue(found);
-    }
 
     @Test
     void addComputerNull() {

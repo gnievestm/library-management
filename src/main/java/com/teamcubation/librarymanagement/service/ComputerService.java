@@ -28,7 +28,4 @@ public class ComputerService {
 
     }
 
-    public boolean existComputer(int computerID) {
-        return computerManager.existComputer(computerID);
-    }
 }

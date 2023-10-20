@@ -1,6 +1,7 @@
 package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Computer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,6 @@ public class ComputerManager {
         return true;
     }
 
-    public boolean existComputer(int computerID) {
-        return computerList.contains(computerID);
-    }
 
 
 }
