@@ -17,8 +17,12 @@ public class NewspaperManager {
         inUse = new ArrayList<>();
     }
 
-    public void addNewspaper(Newspaper newEntry) {
+    public boolean addNewspaper(Newspaper newEntry) {
+        if (newEntry.getDate().equals("") || newEntry.getHeadline().equals("")) {
+            return false;
+        }
         catalogue.add(newEntry);
+        return true;
     }
 
     public void viewNewspaper() {
