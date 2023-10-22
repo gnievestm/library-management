@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NewspaperServicesTest {
@@ -87,11 +88,9 @@ public class NewspaperServicesTest {
 
     @Test
     void searchForNewspaperHeadline(){
-
         Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
-
-        assertTrue(manageEntry.searchForNewspaperHeadline("The Last stand"), "Found the newspaper with the headline");
+        assertTrue(manageEntry.searchForNewspaperHeadline("The last stand"), "Found the newspaper with the headline");
     }
 }

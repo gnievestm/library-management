@@ -6,6 +6,7 @@ import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperN
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class NewspaperManager {
 
@@ -55,7 +56,7 @@ public class NewspaperManager {
 
     public boolean searchForNewspaperHeadline(String headline){
 
-        return catalogue.stream().allMatch(Newspaper-> Newspaper.getHeadline().equals(headline));
+        return catalogue.stream().anyMatch(Newspaper-> Objects.equals(Newspaper.getHeadline(), headline));
     }
 
 
