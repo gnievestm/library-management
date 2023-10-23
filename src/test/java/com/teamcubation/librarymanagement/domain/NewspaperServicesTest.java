@@ -5,59 +5,66 @@ import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.MissingDat
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperAlreadyBorrowed;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperNotFound;
 import com.teamcubation.librarymanagement.domain.managers.NewspaperManager;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NewspaperServicesTest {
 
     @Test
     void addNewEntry() throws MissingDateOrHeadline {
 
-        try {
-            Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
-            if (entry.getDate().isEmpty() || entry.getHeadline().isEmpty()) {
-                throw new MissingDateOrHeadline();
-            } else {
-                NewspaperManager manageEntry = new NewspaperManager();
-                manageEntry.addNewspaper(entry);
-            }
-        } catch (MissingDateOrHeadline e) {
-
-        }
+        Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
+        NewspaperManager manageEntry = new NewspaperManager();
+        assertTrue(manageEntry.addNewspaper(entry), "The upload of the entry was succeeded");
     }
 
     @Test
-    void viewNewspaper() {
+    void addNewEntryWithOutHeadlineOrDate() {
 
+        Newspaper entry = new Newspaper(1, "", "");
+        NewspaperManager manageEntry = new NewspaperManager();
+        Exception thrown = Assertions.assertThrows(MissingDateOrHeadline.class, () -> {
+            manageEntry.addNewspaper(entry);
+        });
+        assertEquals("You can´t register a Newspaper without a date or headline", thrown.getMessage());
+    }
+
+    @Test
+    void viewNewspaper() throws MissingDateOrHeadline {
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
-
         manageEntry.viewNewspaper();
+        assertTrue(manageEntry.viewNewspaper(), "Showing available newspapers");
     }
 
     @Test
-    void viewNewspaperRequest() throws NewspaperNotFound {
+    void viewNewspaperExist() throws MissingDateOrHeadline {
+        Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
+        NewspaperManager manageEntry = new NewspaperManager();
+        manageEntry.addNewspaper(entry);
+        assertTrue(manageEntry.viewNewspaperExist(entry), "The newspaper exists");
+    }
 
-        try {
-            Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
-            if (entry.getDate().isEmpty() || entry.getHeadline().isEmpty()) {
-                throw new NewspaperNotFound();
-            } else {
-                NewspaperManager manageEntry = new NewspaperManager();
-                manageEntry.addNewspaper(entry);
+    @Test
+    void viewNewspaperRequest() throws MissingDateOrHeadline {
+        Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
+        NewspaperManager manageEntry = new NewspaperManager();
+        manageEntry.addNewspaper(entry);
+        assertTrue(manageEntry.viewNewspaperExist(entry), "The newspaper exist");
+    }
 
-                manageEntry.viewNewspaperRequest(entry);
-            }
-
-        } catch (NewspaperNotFound e) {
-
-        }
+    @Test
+    void searchForNewspaperHeadline() throws MissingDateOrHeadline {
+        Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
+        NewspaperManager manageEntry = new NewspaperManager();
+        manageEntry.addNewspaper(entry);
+        assertTrue(manageEntry.searchForNewspaperHeadline("The last stand"), "Found the newspaper with the headline");
     }
 
     @Test
@@ -68,6 +75,7 @@ public class NewspaperServicesTest {
 
         assert (manageEntry.borrowNewspaper(entry));
     }
+
     @Test
     void borrowNewspaperException() throws NewspaperAlreadyBorrowed {
 
@@ -79,18 +87,12 @@ public class NewspaperServicesTest {
     }
 
     @Test
-    void returnBorrowNewspaper() throws NewspaperNotFound{
+    void returnBorrowNewspaper() throws NewspaperNotFound {
 
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.returnBorrowNewspaper(entry);
     }
 
-    @Test
-    void searchForNewspaperHeadline(){
-        Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
-        NewspaperManager manageEntry = new NewspaperManager();
-        manageEntry.addNewspaper(entry);
-        assertTrue(manageEntry.searchForNewspaperHeadline("The last stand"), "Found the newspaper with the headline");
-    }
+
 }

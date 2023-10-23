@@ -1,6 +1,7 @@
 package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Newspaper;
+import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.MissingDateOrHeadline;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperAlreadyBorrowed;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperNotFound;
 
@@ -15,20 +16,26 @@ public class NewspaperManager {
 
     public NewspaperManager() {
         catalogue = new ArrayList<>();
-        inUse = new ArrayList<>();
     }
 
-    public void addNewspaper(Newspaper newEntry) {
+    public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadline {
+        if (Objects.equals(newEntry.getDate(), "") || Objects.equals(newEntry.getHeadline(), "")) {
+            throw new MissingDateOrHeadline();
+        }
         catalogue.add(newEntry);
+        return true;
     }
 
-    public void viewNewspaper() {
-        System.out.println(catalogue);
+    public boolean viewNewspaper() {
+        return !catalogue.isEmpty();
     }
 
-    public boolean viewNewspaperRequest(Newspaper entry) {
-
+    public boolean viewNewspaperExist(Newspaper entry) {
         return catalogue.contains(entry);
+    }
+
+    public boolean searchForNewspaperHeadline(String headline) {
+        return catalogue.stream().anyMatch(Newspaper -> Objects.equals(Newspaper.getHeadline(), headline));
     }
 
     public boolean borrowNewspaper(Newspaper newspaper) throws NewspaperAlreadyBorrowed {
@@ -52,11 +59,6 @@ public class NewspaperManager {
 
             return false;
         }
-    }
-
-    public boolean searchForNewspaperHeadline(String headline){
-
-        return catalogue.stream().anyMatch(Newspaper-> Objects.equals(Newspaper.getHeadline(), headline));
     }
 
 
