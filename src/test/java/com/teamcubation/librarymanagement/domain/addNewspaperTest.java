@@ -3,13 +3,13 @@ package com.teamcubation.librarymanagement.domain;
 import com.teamcubation.librarymanagement.domain.entities.Newspaper;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.MissingDateOrHeadline;
 import com.teamcubation.librarymanagement.domain.managers.NewspaperManager;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class addNewspaperTest {
 
@@ -24,9 +24,12 @@ public class addNewspaperTest {
     @Test
     void addNewEntryWithOutHeadlineOrDate() throws MissingDateOrHeadline {
 
-        Newspaper entry = new Newspaper(1, "", "2000-07-23");
+        Newspaper entry = new Newspaper(1, "", "");
         NewspaperManager manageEntry = new NewspaperManager();
-        assertFalse(manageEntry.addNewspaper(entry), "the upload the entry is negated");
+        Exception thrown = Assertions.assertThrows(MissingDateOrHeadline.class, () -> {
+            manageEntry.addNewspaper(entry);
+        });
+        assertEquals("You can´t register a Newspaper without a date or headline", thrown.getMessage());
     }
 
 
