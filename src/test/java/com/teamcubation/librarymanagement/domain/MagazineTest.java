@@ -1,7 +1,7 @@
 package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
-import com.teamcubation.librarymanagement.service.MagazineService;
+import com.teamcubation.librarymanagement.application.service.MagazineService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.teamcubation.librarymanagement.service;
+package com.teamcubation.librarymanagement.application.service;
 
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;

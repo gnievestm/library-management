@@ -2,8 +2,7 @@ package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.entities.Book;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
-import com.teamcubation.librarymanagement.domain.managers.BookManager;
-import com.teamcubation.librarymanagement.service.BookService;
+import com.teamcubation.librarymanagement.application.service.BookService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
