@@ -4,6 +4,7 @@ import com.teamcubation.librarymanagement.domain.entities.Book;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookAlreadyBorrowed;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
 import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookException;
+import com.teamcubation.librarymanagement.domain.exceptions.book.ReturnABookthatIsNotBorrowed;
 import com.teamcubation.librarymanagement.domain.managers.BookManager;
 
 import java.util.List;
@@ -58,5 +59,11 @@ public class BookService {
             throw new BookAlreadyBorrowed();
         }
         BookManager.addBorrowedBook(book);
+    }
+    public void returnBorrowedBook(Book book) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
+        if(!BookManager.existBook(book)){
+            throw new NotExistBookException();
+        }
+        BookManager.returnBorrowedBook(book);
     }
 }

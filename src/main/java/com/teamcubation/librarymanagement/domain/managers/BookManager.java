@@ -2,6 +2,7 @@ package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Book;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
+import com.teamcubation.librarymanagement.domain.exceptions.book.ReturnABookthatIsNotBorrowed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,14 @@ public class BookManager {
         }
         availableBooks.remove(book);
         borrowedBooks.add(book);
+        return true;
+    }
+    public boolean returnBorrowedBook(Book book) throws ReturnABookthatIsNotBorrowed {
+        if(!borrowedBooks.contains(book)){
+            throw new ReturnABookthatIsNotBorrowed();
+        }
+        borrowedBooks.remove(book);
+        availableBooks.add(book);
         return true;
     }
 

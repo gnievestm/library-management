@@ -4,6 +4,7 @@ import com.teamcubation.librarymanagement.domain.entities.Book;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookAlreadyBorrowed;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
 import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookException;
+import com.teamcubation.librarymanagement.domain.exceptions.book.ReturnABookthatIsNotBorrowed;
 import com.teamcubation.librarymanagement.service.BookService;
 import org.junit.jupiter.api.Test;
 
@@ -74,4 +75,33 @@ public class BookServiceTest {
         });
     }
 
+    @Test
+    public void returnBorrowedBookCorrectBehavior() throws BookSomeEmptyAttributeException, BookAlreadyBorrowed, NotExistBookException, ReturnABookthatIsNotBorrowed {
+        Book bookToBorrow3 = new Book("La biblia", "sin autor", "1000");
+        BookService bookService = BookService.getInstance();
+        bookService.addBook(bookToBorrow3);
+        bookService.addBorrowedBook(bookToBorrow3);
+        bookService.returnBorrowedBook(bookToBorrow3);
+        List<Book> result = bookService.getBorrowedBooks();
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    public void returnABookThatisNotBorrowedBook() throws BookSomeEmptyAttributeException, BookAlreadyBorrowed, NotExistBookException, ReturnABookthatIsNotBorrowed {
+        Book bookToBorrow4 = new Book("Blancanieves", "sin autor", "1000");
+        BookService bookService = BookService.getInstance();
+        bookService.addBook(bookToBorrow4);
+        assertThrows(ReturnABookthatIsNotBorrowed.class, () -> {
+            bookService.returnBorrowedBook(bookToBorrow4);
+        });
+    }
+
+    @Test
+    public void returnABookThatNotExist() throws BookSomeEmptyAttributeException, BookAlreadyBorrowed, NotExistBookException, ReturnABookthatIsNotBorrowed {
+        Book bookToBorrow5 = new Book("La eduación de la voluntad", "Author", "2020");
+        BookService bookService = BookService.getInstance();
+        assertThrows(NotExistBookException.class, () -> {
+            bookService.returnBorrowedBook(bookToBorrow5);
+        });
+    }
 }
