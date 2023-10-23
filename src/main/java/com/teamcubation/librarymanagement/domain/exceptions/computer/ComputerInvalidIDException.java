@@ -1,8 +1,8 @@
 package com.teamcubation.librarymanagement.domain.exceptions.computer;
 
-public class ComputerInvalidID extends Exception {
+public class ComputerInvalidIDException extends Exception {
 
-    public ComputerInvalidID() {
+    public ComputerInvalidIDException() {
         super("ID is not Valid");
     }
 }
