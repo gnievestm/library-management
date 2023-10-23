@@ -37,11 +37,11 @@ public class NewspaperManager {
     public boolean borrowNewspaper(Newspaper newspaper) throws NewspaperAlreadyBorrowed {
 
         if (inUse.contains(newspaper)) {
-            return true;
+            return true; //Returning the success of the exception
         } else {
             inUse.add(newspaper);
         }
-        return false;
+        return true;
     }
 
 
