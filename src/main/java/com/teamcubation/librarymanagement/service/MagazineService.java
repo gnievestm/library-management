@@ -1,8 +1,11 @@
 package com.teamcubation.librarymanagement.service;
 
+import com.teamcubation.librarymanagement.domain.entities.BorrowMagazine;
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.*;
 import com.teamcubation.librarymanagement.domain.managers.MagazineManager;
+
+import java.util.List;
 
 public class MagazineService {
     static MagazineService instance;
@@ -20,17 +23,17 @@ public class MagazineService {
         this.magazineManager = new MagazineManager();
     }
 
-    public void addMagazine(String magazineName, String date) throws MagazineAttributeNameMissingException, MagazineAttributeMissingException, MagazineAttributeDateMissingException {
-        if (magazineName == null && date == null && magazineName == "" && date == "") {
+    public void addMagazine(String magazineName, String date) throws MagazineAttributeMissingException {
+        if (magazineName == null || date == null || magazineName == "" || date == "") {
             throw new MagazineAttributeMissingException();
         }
-        if (magazineName == null && magazineName == "") {
-            throw new MagazineAttributeNameMissingException();
-        }
-        if (date == null && date == "") {
-            throw new MagazineAttributeDateMissingException();
-        }
         Magazine magazine = new Magazine(magazineName, date);
+        this.magazineManager.addMagazine(magazine);
+    }
+    public void addMagazine(Magazine magazine) throws  MagazineAttributeMissingException{
+        if (magazine.getName() == null || magazine.getDate() == null || magazine.getName() == "" || magazine.getDate() == "") {
+            throw new MagazineAttributeMissingException();
+        }
         this.magazineManager.addMagazine(magazine);
     }
 
@@ -43,17 +46,17 @@ public class MagazineService {
     }
     public boolean addMagazineAvailable(Magazine magazine) throws MagazineYourDoesNotExistException {
         if(magazineManager.existMagazine(magazine)){
-            return addMagazineAvailable(magazine);
+            return this.magazineManager.addMagazineAvailable(magazine);
         }
         throw new MagazineYourDoesNotExistException();
     }
-    public boolean borrowMagazine(Magazine magazine) throws MagazineYourDoesNotExistException {
+    public boolean borrowMagazine(Magazine magazine) throws MagazineYourDoesNotExistException, MagazineNotAvailableException {
         if(magazineManager.existMagazine(magazine)){
-            return borrowMagazine(magazine);
+            return this.magazineManager.borrowMagazine(magazine);
         }
         throw new MagazineYourDoesNotExistException();
     }
-
-
-
+    public List seeStatusMagazine() {
+        return this.magazineManager.seeStatusMagazine();
+    }
 }
