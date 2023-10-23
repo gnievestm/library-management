@@ -6,6 +6,7 @@ import com.teamcubation.librarymanagement.domain.exceptions.room.RoomAlreadyRese
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 public class RoomManager {
 
@@ -36,19 +37,19 @@ public class RoomManager {
     public List<Room> getAvailableRooms() {
 
         if (this.availableRooms.isEmpty()) {
-            return null;
+            return Collections.emptyList();
         }
 
-        return this.availableRooms;
+        return Collections.unmodifiableList(new ArrayList<>(this.availableRooms));
+
     }
 
     public List<Room> getReservedRooms() {
-
         if (this.reservedRooms.isEmpty()) {
-            return null;
+            return Collections.emptyList();
         }
 
-        return this.reservedRooms;
+        return Collections.unmodifiableList(new ArrayList<>(this.reservedRooms));
     }
 
     public boolean reserveRoom (Room room) throws RoomNotFoundException, RoomAlreadyReservedException {
