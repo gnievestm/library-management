@@ -6,6 +6,7 @@ import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperN
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class NewspaperManager {
 
@@ -15,7 +16,10 @@ public class NewspaperManager {
         catalogue = new ArrayList<>();
     }
 
-    public boolean addNewspaper(Newspaper newEntry) {
+    public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadline {
+        if (Objects.equals(newEntry.getDate(), "") || Objects.equals(newEntry.getHeadline(), "")){
+            throw new MissingDateOrHeadline();
+        }
         catalogue.add(newEntry);
         return true;
     }
