@@ -3,7 +3,7 @@ package com.teamcubation.librarymanagement.domain;
 import com.teamcubation.librarymanagement.domain.entities.Room;
 import com.teamcubation.librarymanagement.domain.exceptions.room.*;
 import com.teamcubation.librarymanagement.domain.managers.RoomManager;
-import com.teamcubation.librarymanagement.service.RoomService;
+import com.teamcubation.librarymanagement.application.service.RoomService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

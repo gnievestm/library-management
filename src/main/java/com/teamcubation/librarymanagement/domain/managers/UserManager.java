@@ -19,6 +19,10 @@ public class UserManager {
         return true;
     }
 
+    public List<User> getAllUsers() {
+        return this.users;
+    }
+
     public boolean existUser(User user) {
         return users.contains(user);
     }

@@ -1,4 +1,4 @@
-package com.teamcubation.librarymanagement.service;
+package com.teamcubation.librarymanagement.application.service;
 
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
