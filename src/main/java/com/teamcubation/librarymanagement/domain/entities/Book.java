@@ -45,6 +45,10 @@ public class Book {
         return bookId == ((Book) o).bookId;
     }
 
+    public String toString() {
+        return "Book{" + " title=" + this.title + ",author='" + this.author + '\'' + ",yearOfPublishing='" + this.yearOfPublishing + '\'' + '}';
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getBookId(), getAuthor(), getTitle(), getYearOfPublishing());
