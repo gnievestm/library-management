@@ -63,10 +63,8 @@ public class RoomManager {
             availableRooms.remove(room);
 
             return true;
-
         } else {
             throw new RoomNotFoundException();
         }
-
     }
 }
