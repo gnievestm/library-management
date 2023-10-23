@@ -1,23 +1,22 @@
 package com.teamcubation.librarymanagement.domain.entities;
 
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidIDException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 
 public class Computer {
 
-    private int computerID = 0;
+    static int computerID = 0;
     private String brand;
     private String model;
-    
-    public Computer(int computerID, String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidID {
+
+    public Computer(int computerID, String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidIDException {
         if (brand == null || model == null) {
             throw new ComputerMissingFieldsException();
         }
         if (computerID <= 0) {
-            throw new ComputerInvalidID();
+            throw new ComputerInvalidIDException();
         }
-        this.computerID = computerID;
+        this.computerID = Computer.computerID++;
         this.brand = brand;
         this.model = model;
     }
@@ -39,6 +38,6 @@ public class Computer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Computer computer = (Computer) o;
-        return computerID == (computer.computerID) && brand.equals(computer.brand) && model.equals(computer.model);
+        return computerID == (computer.computerID);
     }
 }

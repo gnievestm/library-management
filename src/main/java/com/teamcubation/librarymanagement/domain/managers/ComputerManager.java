@@ -21,6 +21,8 @@ public class ComputerManager {
         return true;
     }
 
-
+    public boolean existComputer(Computer computer) {
+        return computerList.contains(computer);
+    }
 
 }

@@ -1,7 +1,7 @@
 package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.entities.Computer;
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidIDException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 import com.teamcubation.librarymanagement.service.ComputerService;
 import org.junit.jupiter.api.Test;
@@ -11,9 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ComputerServiceTest {
 
+    @Test
+    void adduserTest() throws ComputerInvalidIDException, ComputerMissingFieldsException {
+        ComputerService computerService = ComputerService.getInstance();
+        computerService.addComputer(1, "brand", "model");
+        Computer computer = new Computer(1, "brand", "model");
+        boolean found = computerService.existComputer(computer);
+
+        assertTrue(found);
+    }
 
     @Test
-    void addComputerNull() {
+    void addComputerNullTest() {
 
         assertThrows(ComputerMissingFieldsException.class,
                 () -> {
@@ -23,9 +32,9 @@ public class ComputerServiceTest {
     }
 
     @Test
-    void negativeID() {
+    void negativeIDTest() {
 
-        assertThrows(ComputerInvalidID.class,
+        assertThrows(ComputerInvalidIDException.class,
                 () -> {
                     ComputerService computerService = ComputerService.getInstance();
                     computerService.addComputer(-1, "brand", "model");
@@ -33,12 +42,12 @@ public class ComputerServiceTest {
     }
 
     @Test
-    void idZero() {
+    void idZeroTest() {
 
-        assertThrows(ComputerInvalidID.class,
+        assertThrows(ComputerInvalidIDException.class,
                 () -> {
                     ComputerService computerService = ComputerService.getInstance();
                     computerService.addComputer(0, "brand", "model");
-        });
+                });
     }
 }
