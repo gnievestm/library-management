@@ -42,4 +42,13 @@ public class BookManager {
         return books.size();
     }
 
+    public boolean addBorrowedBook(Book book) {
+        if (borrowedBooks.contains(book)) {
+            return false;
+        }
+        availableBooks.remove(book);
+        borrowedBooks.add(book);
+        return true;
+    }
+
 }

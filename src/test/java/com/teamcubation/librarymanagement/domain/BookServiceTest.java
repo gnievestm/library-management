@@ -1,7 +1,9 @@
 package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.entities.Book;
+import com.teamcubation.librarymanagement.domain.exceptions.book.BookAlreadyBorrowed;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
+import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookException;
 import com.teamcubation.librarymanagement.service.BookService;
 import org.junit.jupiter.api.Test;
 
@@ -38,4 +40,38 @@ public class BookServiceTest {
             System.out.println(book.toString());
         }
     }
+
+    @Test
+    public void addBorrowedBookCorrectBehavior() throws BookSomeEmptyAttributeException, NotExistBookException, BookAlreadyBorrowed {
+        Book bookToBorrow = new Book("Capelucita roja", "no sé", "1944");
+        BookService bookService = BookService.getInstance();
+        bookService.addBook(bookToBorrow);
+        bookService.addBorrowedBook(bookToBorrow);
+        List<Book> result = bookService.getBorrowedBooks();
+
+        assertEquals(1, result.size());
+    }
+
+
+    @Test
+    public void addAlreadyBorrowedBook() throws BookAlreadyBorrowed, NotExistBookException, BookSomeEmptyAttributeException {
+        Book bookToBorrow2 = new Book("Hamlet", "authorcito", "2010");
+        BookService bookService = BookService.getInstance();
+        bookService.addBook(bookToBorrow2);
+        bookService.addBorrowedBook(bookToBorrow2);
+        assertThrows(BookAlreadyBorrowed.class, () -> {
+            bookService.addBorrowedBook(bookToBorrow2);
+        });
+    }
+
+    @Test
+    public void addBookThatNotExist() throws BookAlreadyBorrowed, NotExistBookException, BookSomeEmptyAttributeException {
+        Book bookExample4 = new Book("los tres chanchitos", "author", "2010");
+        BookService bookService = BookService.getInstance();
+
+        assertThrows(NotExistBookException.class, () -> {
+            bookService.addBorrowedBook(bookExample4);
+        });
+    }
+
 }
