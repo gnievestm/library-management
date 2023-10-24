@@ -3,7 +3,7 @@ package com.teamcubation.librarymanagement.domain.entities;
 import java.util.Objects;
 
 public class User {
-    static int userIds=0;
+    static int userIds = 0;
     private String name;
     private String userName;
     private String email;

@@ -12,47 +12,48 @@ public class UserManager {
         users = new ArrayList<>();
     }
 
-    public boolean addUser(User user){
-        if(users.contains(user))
+    public boolean addUser(User user) {
+        if (users.contains(user))
             return false;
         users.add(user);
         return true;
     }
 
-    public boolean existUser(User user){
+    public boolean existUser(User user) {
         return users.contains(user);
     }
-    public User findUserByName(String name){
+
+    public User findUserByName(String name) {
         User result = null;
-        for(User user: this.users){
-            if(user.getName().equals(name))
+        for (User user : this.users) {
+            if (user.getName().equals(name))
                 result = user;
         }
         return result;
     }
 
-    public User findUserByUserName(String userName){
+    public User findUserByUserName(String userName) {
         User result = null;
-        for(User user: this.users){
-            if(user.getUserName().equals(userName))
+        for (User user : this.users) {
+            if (user.getUserName().equals(userName))
                 result = user;
         }
         return result;
     }
 
-    public User findUserById(int id){
+    public User findUserById(int id) {
         User result = null;
-        for(User user: this.users){
-            if(user.getId() == id)
+        for (User user : this.users) {
+            if (user.getId() == id)
                 result = user;
         }
         return result;
     }
 
-    public List<Integer> getUserIdsByAge(int age){
+    public List<Integer> getUserIdsByAge(int age) {
         List<Integer> ids = new ArrayList<>();
-        for(User user: this.users){
-            if(user.getAge() == age)
+        for (User user : this.users) {
+            if (user.getAge() == age)
                 ids.add(user.getAge());
         }
         return ids;

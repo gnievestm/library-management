@@ -14,7 +14,9 @@ public class MagazineManager {
     private List<BorrowMagazine> magazinesBorrowed = new ArrayList<>();
     private List<BorrowMagazine> magazinesStatus = new ArrayList<>();
 
-    public List<BorrowMagazine> getMagazinesStatus() {return magazinesStatus;}
+    public List<BorrowMagazine> getMagazinesStatus() {
+        return magazinesStatus;
+    }
 
     public List<BorrowMagazine> getMagazinesAvailable() {
         return magazinesAvailable;
@@ -34,6 +36,9 @@ public class MagazineManager {
         if (magazines.contains(magazine))
             return false;
         magazines.add(magazine);
+        if (!magazinesAvailable.contains(magazine)) {
+            addMagazineAvailable(magazine);
+        }
         return true;
     }
 
@@ -42,13 +47,6 @@ public class MagazineManager {
     }
 
     public List seeStatusMagazine() {
-
-        for (int a = 0; a < magazinesAvailable.size(); a++)
-            magazinesStatus.add(magazinesAvailable.get(a));
-
-        for (int a = 0; a < magazinesBorrowed.size(); a++)
-            magazinesStatus.add(magazinesBorrowed.get(a));
-
         return magazinesStatus;
     }
 
@@ -56,16 +54,20 @@ public class MagazineManager {
         return magazines.size();
     }
 
+    public int sizeMagazineStatus() {
+        return magazinesStatus.size();
+    }
 
-    public boolean borrowMagazine(Magazine magazine) throws MagazineNotAvailableException {
-        for (int index = 0; index < magazinesAvailable.size(); index++) {
-            BorrowMagazine borrowMagazineAvailable = new BorrowMagazine(magazine, true);
-            if (magazinesAvailable.contains(borrowMagazineAvailable)) {
-                magazinesAvailable.remove(borrowMagazineAvailable);
-                BorrowMagazine borrowMagazine = new BorrowMagazine(magazine, false);
-                magazinesBorrowed.add(borrowMagazine);
-                return true;
+
+    public void borrowMagazine(Magazine magazine) throws MagazineNotAvailableException {
+        BorrowMagazine borrowMagazineAvailable = new BorrowMagazine(magazine, true);
+        if (magazinesStatus.contains(borrowMagazineAvailable)) {
+            magazinesAvailable.remove(borrowMagazineAvailable);
+            magazinesBorrowed.add(new BorrowMagazine(magazine, false));
+            for (int index = 0; index < magazinesStatus.size(); index++) {
+                magazinesStatus.get(index).setBorrow(false);
             }
+            return;
         }
         throw new MagazineNotAvailableException();
     }
@@ -73,6 +75,7 @@ public class MagazineManager {
     public boolean addMagazineAvailable(Magazine magazine) {
         BorrowMagazine borrowMagazine = new BorrowMagazine(magazine, true);
         magazinesAvailable.add(borrowMagazine);
+        magazinesStatus.add(borrowMagazine);
         return true;
     }
 }

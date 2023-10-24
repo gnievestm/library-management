@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class BorrowMagazine {
     private Magazine magazine;
+
+
     private boolean isBorrow;
 
     public Magazine getMagazine() {
@@ -12,6 +14,10 @@ public class BorrowMagazine {
 
     public boolean getIsBorrow() {
         return isBorrow;
+    }
+
+    public void setBorrow(boolean borrow) {
+        isBorrow = borrow;
     }
 
     public BorrowMagazine(Magazine magazine, boolean isBorrow) {
