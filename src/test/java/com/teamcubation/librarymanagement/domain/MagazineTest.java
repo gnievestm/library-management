@@ -5,6 +5,7 @@ import com.teamcubation.librarymanagement.domain.entities.BorrowMagazine;
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotAvailableException;
+import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotExistException;
 import com.teamcubation.librarymanagement.service.MagazineService;
 import org.junit.jupiter.api.Test;
 
@@ -52,5 +53,21 @@ public class MagazineTest {
         expected.add(borrowMagazine);
         assertEquals(expected, magazineService.seeStatusMagazine());
     }
-
+    @Test
+    public void MagazineSearchTest() throws MagazineAttributeMissingException, MagazineNotExistException {
+        MagazineService magazineService = new MagazineService();
+        Magazine magazine = new Magazine("leo", new Date());
+        magazineService.addMagazine(magazine);
+        assertEquals(magazineService.searchMagazine("leo"),magazine);
+    }
+    @Test
+    public void MagazineSearchTestExceptiom() throws MagazineAttributeMissingException, MagazineNotExistException  {
+        MagazineService magazineService = MagazineService.getInstance();
+        Magazine magazine = new Magazine("leo", new Date());
+        magazineService.addMagazine(magazine);
+        MagazineNotExistException exception = assertThrows(MagazineNotExistException.class, () -> {
+            magazineService.searchMagazine("no");
+        });
+        assertEquals(exception.getMessage(), "The magazine does not exist");
+    }
 }

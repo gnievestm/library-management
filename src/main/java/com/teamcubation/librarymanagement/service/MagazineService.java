@@ -3,6 +3,7 @@ package com.teamcubation.librarymanagement.service;
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotAvailableException;
+import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotExistException;
 import com.teamcubation.librarymanagement.domain.managers.MagazineManager;
 
 import java.util.Date;
@@ -69,5 +70,8 @@ public class MagazineService {
 
     public List seeStatusMagazine() {
         return this.magazineManager.seeStatusMagazine();
+    }
+    public Magazine searchMagazine(String name) throws MagazineNotExistException {
+        return magazineManager.searchMagazine(name);
     }
 }

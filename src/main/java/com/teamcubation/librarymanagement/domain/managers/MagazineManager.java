@@ -4,6 +4,7 @@ package com.teamcubation.librarymanagement.domain.managers;
 import com.teamcubation.librarymanagement.domain.entities.BorrowMagazine;
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotAvailableException;
+import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotExistException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,14 @@ public class MagazineManager {
         magazinesAvailable.add(borrowMagazine);
         magazinesStatus.add(borrowMagazine);
         return true;
+    }
+    public Magazine searchMagazine(String name) throws MagazineNotExistException {
+        for (int index=0;index<magazines.size();index++){
+        if(magazines.get(index).getName().equals(name)) {
+            return magazines.get(index);
+        }
+        }
+    throw new MagazineNotExistException();
     }
 }
 
