@@ -3,6 +3,7 @@ package com.teamcubation.librarymanagement.domain.managers;
 import com.teamcubation.librarymanagement.domain.entities.Newspaper;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.MissingDateOrHeadline;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperAlreadyBorrowed;
+import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperIsNotPossibleToReturn;
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperNotFound;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class NewspaperManager {
         return catalogue.contains(entry);
     }
 
-    public boolean borrowNewspaper(Newspaper newspaper) throws NewspaperAlreadyBorrowed {
+    public boolean borrowNewspaper(Newspaper newspaper) throws NewspaperAlreadyBorrowed, NewspaperIsNotPossibleToReturn {
 
         if (inUse.contains(newspaper)) {
             throw new NewspaperAlreadyBorrowed();
@@ -52,14 +53,13 @@ public class NewspaperManager {
         return true;
     }
 
-    public boolean returnBorrowNewspaper(Newspaper newspaper) throws NewspaperNotFound {
-
-        if (inUse.contains(newspaper)) {
-            inUse.remove(newspaper);
-            catalogue.add(newspaper);
-            return true;
+    public boolean returnBorrowNewspaper(Newspaper newspaper) throws NewspaperIsNotPossibleToReturn {
+        if (!inUse.contains(newspaper)) {
+            throw new NewspaperIsNotPossibleToReturn();
         }
-        return false;
+        inUse.remove(newspaper);
+        catalogue.add(newspaper);
+        return true;
     }
 
     public boolean searchForNewspaperHeadline(String headline) {
