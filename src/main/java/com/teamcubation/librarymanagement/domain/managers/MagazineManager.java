@@ -79,13 +79,27 @@ public class MagazineManager {
         magazinesStatus.add(borrowMagazine);
         return true;
     }
+
     public Magazine searchMagazine(String name) throws MagazineNotExistException {
-        for (int index=0;index<magazines.size();index++){
-        if(magazines.get(index).getName().equals(name)) {
-            return magazines.get(index);
+        for (int index = 0; index < magazines.size(); index++) {
+            if (magazines.get(index).getName().equals(name)) {
+                return magazines.get(index);
+            }
         }
+        throw new MagazineNotExistException();
+    }
+
+    public boolean returnMagazine(Magazine magazine) {
+        BorrowMagazine borrowMagazine = new BorrowMagazine(magazine, false);
+        if (magazinesBorrowed.contains(borrowMagazine)) {
+            magazinesBorrowed.remove(borrowMagazine);
+            magazinesAvailable.add(new BorrowMagazine(magazine, true));
+            for (int index = 0; index < magazinesStatus.size(); index++) {
+                magazinesStatus.get(index).setBorrow(true);
+                return true;
+            }
         }
-    throw new MagazineNotExistException();
+        return false;
     }
 }
 

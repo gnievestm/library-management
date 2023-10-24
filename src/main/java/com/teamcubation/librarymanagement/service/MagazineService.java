@@ -74,4 +74,10 @@ public class MagazineService {
     public Magazine searchMagazine(String name) throws MagazineNotExistException {
         return magazineManager.searchMagazine(name);
     }
+    public boolean returnMagazine(Magazine magazine){
+        if (magazineManager.existMagazine(magazine)) {
+     return magazineManager.returnMagazine(magazine);
+        }
+        return false;
+    }
 }

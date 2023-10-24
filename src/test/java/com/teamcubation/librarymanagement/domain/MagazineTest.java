@@ -70,4 +70,12 @@ public class MagazineTest {
         });
         assertEquals(exception.getMessage(), "The magazine does not exist");
     }
+    @Test
+    public void MagazineReturnTest() throws MagazineAttributeMissingException, MagazineNotAvailableException {
+        MagazineService magazineService = new MagazineService();
+        Magazine magazine = new Magazine("leo", new Date());
+        magazineService.addMagazine(magazine);
+        magazineService.borrowMagazine(magazine);
+        assertTrue(magazineService.returnMagazine(magazine));
+    }
 }
