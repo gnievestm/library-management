@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class User {
     static int userIds = 0;
-    private String name;
-    private String userName;
-    private String email;
-    private String phone;
-    private int age;
-    private int id;
+    private final String name;
+    private final String userName;
+    private final String email;
+    private final String phone;
+    private final int age;
+    private final int id;
 
     public User(String name, String userName, String email, String phone, int age) {
         this.name = name;
