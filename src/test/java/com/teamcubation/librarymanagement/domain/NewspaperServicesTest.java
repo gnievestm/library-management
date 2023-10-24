@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class NewspaperServicesTest {
 
     @Test
-    void addNewEntry() throws MissingDateOrHeadline {
+    void addNewEntry() throws MissingDateOrHeadline, NewspaperNotFound {
 
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
@@ -35,7 +35,7 @@ public class NewspaperServicesTest {
     }
 
     @Test
-    void viewNewspaper() throws MissingDateOrHeadline {
+    void viewNewspaper() throws MissingDateOrHeadline, NewspaperNotFound {
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
@@ -44,7 +44,7 @@ public class NewspaperServicesTest {
     }
 
     @Test
-    void viewNewspaperExist() throws MissingDateOrHeadline {
+    void viewNewspaperExist() throws MissingDateOrHeadline, NewspaperNotFound {
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
@@ -52,7 +52,7 @@ public class NewspaperServicesTest {
     }
 
     @Test
-    void viewNewspaperRequest() throws MissingDateOrHeadline {
+    void viewNewspaperRequest() throws MissingDateOrHeadline, NewspaperNotFound {
         Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
@@ -60,11 +60,23 @@ public class NewspaperServicesTest {
     }
 
     @Test
-    void searchForNewspaperHeadline() throws MissingDateOrHeadline {
+    void searchForNewspaperHeadline() throws MissingDateOrHeadline, NewspaperNotFound {
         Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.addNewspaper(entry);
         assertTrue(manageEntry.searchForNewspaperHeadline("The last stand"), "Found the newspaper with the headline");
+    }
+
+    @Test
+    void searchForNewspaperHeadlineException() throws MissingDateOrHeadline, NewspaperNotFound {
+        Newspaper entry = new Newspaper(1, "The last stand", "2008-02-03");
+        NewspaperManager manageEntry = new NewspaperManager();
+        manageEntry.addNewspaper(entry);
+        Exception thrown = assertThrows(NewspaperNotFound.class, () -> {
+            manageEntry.searchForNewspaperHeadline("He´s back");
+        });
+
+        assertEquals("There is not a newspaper with this data", thrown.getMessage());
     }
 
     @Test

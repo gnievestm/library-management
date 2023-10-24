@@ -18,7 +18,7 @@ public class NewspaperManager {
         catalogue = new ArrayList<>();
     }
 
-    public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadline {
+    public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadline, NewspaperNotFound {
         if (Objects.equals(newEntry.getDate(), "") || Objects.equals(newEntry.getHeadline(), "")) {
             throw new MissingDateOrHeadline();
         }
@@ -34,8 +34,11 @@ public class NewspaperManager {
         return catalogue.contains(entry);
     }
 
-    public boolean searchForNewspaperHeadline(String headline) {
-        return catalogue.stream().anyMatch(Newspaper -> Objects.equals(Newspaper.getHeadline(), headline));
+    public boolean searchForNewspaperHeadline(String headline) throws MissingDateOrHeadline, NewspaperNotFound{
+        if (catalogue.stream().noneMatch(Newspaper -> Objects.equals(Newspaper.getHeadline(), headline))){
+            throw new NewspaperNotFound();
+        }
+        return true;
     }
 
     public boolean borrowNewspaper(Newspaper newspaper) throws NewspaperAlreadyBorrowed {
