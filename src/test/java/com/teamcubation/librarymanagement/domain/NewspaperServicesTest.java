@@ -51,8 +51,10 @@ public class NewspaperServicesTest {
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
         manageEntry.borrowNewspaper(entry);
-
-        assertTrue(manageEntry.borrowNewspaper(entry), "The Newspaper is already borrowed");
+        Exception thrown = assertThrows(NewspaperAlreadyBorrowed.class, () ->{
+            manageEntry.borrowNewspaper(entry);
+        });
+        assertEquals("This newspaper is not available", thrown.getMessage());
     }
 
 }
