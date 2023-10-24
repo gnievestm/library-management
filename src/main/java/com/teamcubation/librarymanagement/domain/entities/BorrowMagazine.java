@@ -5,7 +5,6 @@ import java.util.Objects;
 public class BorrowMagazine {
     private Magazine magazine;
 
-
     private boolean isBorrow;
 
     public Magazine getMagazine() {

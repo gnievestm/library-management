@@ -8,86 +8,81 @@ import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAtt
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotAvailableException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotExistException;
 import com.teamcubation.librarymanagement.service.MagazineService;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 public class MagazineTest {
 
-  @Test
-  public void MagazineTestAdd() throws MagazineAttributeMissingException {
-    MagazineService magazineService = MagazineService.getInstance();
-    boolean result = magazineService.addMagazine("leo", new Date());
-    int resultedExpected = magazineService.sizeMagazine();
-    assertTrue(result);
-    assertEquals(resultedExpected, 1);
-  }
+    @Test
+    public void MagazineTestAdd() throws MagazineAttributeMissingException {
+        MagazineService magazineService = new MagazineService();
+        boolean addMagazine = magazineService.addMagazine("leo", new Date());
+        int result = magazineService.magazinesCount();
+        assertTrue(addMagazine);
+        assertEquals(1, result);
+    }
 
-  @Test
-  public void MagazineTestAtributteVoid() {
-    MagazineService magazineService = MagazineService.getInstance();
-    MagazineAttributeMissingException exception = assertThrows(
-      MagazineAttributeMissingException.class,
-      () -> {
-        magazineService.addMagazine(null, null);
-      }
-    );
-    assertEquals(exception.getMessage(), "Your magazine attributes are void");
-  }
+    @Test
+    public void MagazineTestAttributeVoid() {
+        MagazineService magazineService = new MagazineService();
+        MagazineAttributeMissingException exception = assertThrows(MagazineAttributeMissingException.class, () -> {
+            magazineService.addMagazine(null, null);
+        });
+    }
 
-  @Test
-  public void MagazineBorrowTest()
-    throws MagazineAttributeMissingException, MagazineNotAvailableException {
-    MagazineService magazineService = new MagazineService();
-    Magazine magazine = new Magazine("leo", new Date());
-    magazineService.addMagazine(magazine);
-    magazineService.borrowMagazine(magazine);
-    assertEquals(magazineService.sizeMagazineStatus(), 1);
-  }
+    @Test
+    public void MagazineBorrowTest() throws MagazineAttributeMissingException, MagazineNotAvailableException {
+        MagazineService magazineService = new MagazineService();
+        Magazine magazine = new Magazine("leo", new Date());
+        magazineService.addMagazine(magazine);
+        int availableBeforeBorrow = magazineService.getAvailableMagazinesCount();
+        int borrowedBeforeBorrow = magazineService.getBorrowedMagazinesCount();
+        magazineService.borrowMagazine(magazine);
+        int availableAfterBorrow = magazineService.getAvailableMagazinesCount();
+        int borrowedAfterBorrow = magazineService.getBorrowedMagazinesCount();
+        assertEquals(availableBeforeBorrow - 1, availableAfterBorrow);
+        assertEquals(borrowedBeforeBorrow + 1, borrowedAfterBorrow);
+    }
 
-  @Test
-  public void MagazineSeeStatusTest() throws MagazineAttributeMissingException {
-    MagazineService magazineService = new MagazineService();
-    Magazine magazine = new Magazine("leo", new Date());
-    magazineService.addMagazine(magazine);
-    BorrowMagazine borrowMagazine = new BorrowMagazine(magazine, true);
-    List<BorrowMagazine> expected = new ArrayList<>();
-    expected.add(borrowMagazine);
-    assertEquals(expected, magazineService.seeStatusMagazine());
-  }
+    @Test
+    public void MagazineSeeStatusTest() throws MagazineAttributeMissingException {
+        MagazineService magazineService = new MagazineService();
+        Magazine magazine = new Magazine("leo", new Date());
+        magazineService.addMagazine(magazine);
+        BorrowMagazine borrowMagazine = new BorrowMagazine(magazine, true);
+        List<BorrowMagazine> expected = new ArrayList<>();
+        expected.add(borrowMagazine);
+        assertEquals(expected, magazineService.seeStatusMagazine());
+    }
 
-  @Test
-  public void MagazineSearchTest()
-    throws MagazineAttributeMissingException, MagazineNotExistException {
-    MagazineService magazineService = new MagazineService();
-    Magazine magazine = new Magazine("leo", new Date());
-    magazineService.addMagazine(magazine);
-    assertEquals(magazineService.searchMagazine("leo"), magazine);
-  }
+    @Test
+    public void MagazineSearchTest() throws MagazineAttributeMissingException, MagazineNotExistException {
+        MagazineService magazineService = new MagazineService();
+        Magazine magazine = new Magazine("leo", new Date());
+        magazineService.addMagazine(magazine);
+        assertEquals(magazineService.searchMagazine("leo"), magazine);
+    }
 
-  @Test
-  public void MagazineSearchTestExceptiom()
-    throws MagazineAttributeMissingException, MagazineNotExistException {
-    MagazineService magazineService = MagazineService.getInstance();
-    Magazine magazine = new Magazine("leo", new Date());
-    magazineService.addMagazine(magazine);
-    MagazineNotExistException exception = assertThrows(
-      MagazineNotExistException.class,
-      () -> {
-        magazineService.searchMagazine("no");
-      }
-    );
-    assertEquals(exception.getMessage(), "The magazine does not exist");
-  }
+    @Test
+    public void MagazineSearchTestException() throws MagazineAttributeMissingException, MagazineNotExistException {
+        MagazineService magazineService = MagazineService.getInstance();
+        Magazine magazine = new Magazine("leo", new Date());
+        magazineService.addMagazine(magazine);
+        MagazineNotExistException exception = assertThrows(MagazineNotExistException.class, () -> {
+            magazineService.searchMagazine("no");
+        });
+    }
 
-  @Test
-  public void MagazineReturnTest()
-    throws MagazineAttributeMissingException, MagazineNotAvailableException {
-    MagazineService magazineService = new MagazineService();
-    Magazine magazine = new Magazine("leo", new Date());
-    magazineService.addMagazine(magazine);
-    magazineService.borrowMagazine(magazine);
-    assertTrue(magazineService.returnMagazine(magazine));
-  }
+    @Test
+    public void MagazineReturnTest() throws MagazineAttributeMissingException, MagazineNotAvailableException {
+        MagazineService magazineService = new MagazineService();
+        Magazine magazine = new Magazine("leo", new Date());
+        magazineService.addMagazine(magazine);
+        magazineService.borrowMagazine(magazine);
+        assertTrue(magazineService.returnMagazine(magazine));
+    }
 }

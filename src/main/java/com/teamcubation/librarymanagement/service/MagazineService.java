@@ -14,14 +14,12 @@ public class MagazineService {
     private MagazineManager magazineManager;
 
     public static MagazineService getInstance() {
-        if (instance == null)
-            instance = new MagazineService();
+        if (instance == null) instance = new MagazineService();
         return instance;
     }
 
 
     public MagazineService() {
-
         this.magazineManager = new MagazineManager();
     }
 
@@ -40,44 +38,37 @@ public class MagazineService {
             throw new MagazineAttributeMissingException();
         }
         return this.magazineManager.addMagazine(magazine);
-
     }
 
     public boolean existMagazine(Magazine magazine) {
         return magazineManager.existMagazine(magazine);
     }
 
-    public int sizeMagazine() {
-        return magazineManager.sizeMagazine();
+    public int magazinesCount() {
+        return magazineManager.magazinesCount();
     }
 
-    public int sizeMagazineStatus() {
-        return magazineManager.sizeMagazineStatus();
+    public boolean borrowMagazine(Magazine magazine) throws MagazineNotAvailableException {
+        return magazineManager.existMagazine(magazine) && this.magazineManager.borrowMagazine(magazine);
     }
 
-    public boolean addMagazineAvailable(Magazine magazine) {
-        if (magazineManager.existMagazine(magazine)) {
-            return this.magazineManager.addMagazineAvailable(magazine);
-        }
-        return false;
+    public int getAvailableMagazinesCount() {
+        return magazineManager.getMagazinesAvailable().size();
     }
 
-    public void borrowMagazine(Magazine magazine) throws MagazineNotAvailableException {
-        if (magazineManager.existMagazine(magazine)) {
-            this.magazineManager.borrowMagazine(magazine);
-        }
+    public int getBorrowedMagazinesCount() {
+        return magazineManager.getMagazinesBorrowed().size();
     }
 
     public List seeStatusMagazine() {
-        return this.magazineManager.seeStatusMagazine();
+        return this.magazineManager.getAllMagazinesAndStatus();
     }
+
     public Magazine searchMagazine(String name) throws MagazineNotExistException {
         return magazineManager.searchMagazine(name);
     }
-    public boolean returnMagazine(Magazine magazine){
-        if (magazineManager.existMagazine(magazine)) {
-     return magazineManager.returnMagazine(magazine);
-        }
-        return false;
+
+    public boolean returnMagazine(Magazine magazine) {
+        return magazineManager.existMagazine(magazine) && magazineManager.returnMagazine(magazine);
     }
 }
