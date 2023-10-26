@@ -22,7 +22,6 @@ public class MagazineService implements IMagazinePort {
         return instance;
     }
 
-
     public MagazineService() {
         this.magazineManager = new MagazineManager();
     }
