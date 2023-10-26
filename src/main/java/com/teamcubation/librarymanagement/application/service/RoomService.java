@@ -9,14 +9,15 @@ import com.teamcubation.librarymanagement.domain.managers.RoomManager;
 public class RoomService {
 
     static RoomService instance;
-    private RoomManager roomManager;
-    public static RoomService getInstance(){
-        if(instance == null)
+    private final RoomManager roomManager;
+
+    public static RoomService getInstance() {
+        if (instance == null)
             instance = new RoomService();
         return instance;
     }
 
-    private RoomService(){
+    private RoomService() {
         this.roomManager = new RoomManager();
     }
 
@@ -25,7 +26,7 @@ public class RoomService {
         this.roomManager.addRoom(room);
     }
 
-    public boolean existRoom(Room room){
+    public boolean existRoom(Room room) {
         return roomManager.existRoom(room);
     }
 
