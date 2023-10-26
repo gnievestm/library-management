@@ -3,7 +3,7 @@ package com.teamcubation.librarymanagement.domain.entities;
 import java.util.Objects;
 
 public class BorrowMagazine {
-    private Magazine magazine;
+    private final Magazine magazine;
 
     private boolean isBorrow;
 

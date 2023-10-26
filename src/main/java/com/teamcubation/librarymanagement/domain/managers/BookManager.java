@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BookManager {
 
-    private List<Book> books;
+    private final List<Book> books;
 
     public BookManager() {
         books = new ArrayList<>();
@@ -28,7 +28,8 @@ public class BookManager {
     public boolean existBook(Book book) {
         return books.contains(book);
     }
-    public int countBook(){
+
+    public int countBook() {
         return books.size();
     }
 

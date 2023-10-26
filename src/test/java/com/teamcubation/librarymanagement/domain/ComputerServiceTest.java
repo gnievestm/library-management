@@ -1,43 +1,52 @@
 package com.teamcubation.librarymanagement.domain;
 
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
 import com.teamcubation.librarymanagement.application.service.ComputerService;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ComputerServiceTest {
 
-
     @Test
-    void addComputerNull() {
+    void addComputerTest() throws ComputerMissingFieldsException {
+        ComputerService computerService = new ComputerService();
+        computerService.addComputer("brand", "model");
+        boolean found = computerService.existComputer(1);
 
-        assertThrows(ComputerMissingFieldsException.class,
-                () -> {
-                    ComputerService computerService = ComputerService.getInstance();
-                    computerService.addComputer(1, null, "model");
-                });
+        assertTrue(found);
     }
 
     @Test
-    void negativeID() {
+    void addComputerNullTest() {
 
-        assertThrows(ComputerInvalidID.class,
-                () -> {
-                    ComputerService computerService = ComputerService.getInstance();
-                    computerService.addComputer(-1, "brand", "model");
-                });
-    }
-
-    @Test
-    void idZero() {
-
-        assertThrows(ComputerInvalidID.class,
-                () -> {
-                    ComputerService computerService = ComputerService.getInstance();
-                    computerService.addComputer(0, "brand", "model");
+        assertThrows(ComputerMissingFieldsException.class, () -> {
+            ComputerService computerService = new ComputerService();
+            computerService.addComputer(null, "model");
         });
+    }
+
+    @Test
+    void viewComputerTest() throws ComputerMissingFieldsException {
+        ComputerService cs = new ComputerService();
+        List<String> computers = cs.getAllComputers();
+        int expectedSizeBeforeAdding = 0;
+        assertEquals(expectedSizeBeforeAdding, computers.size());
+        cs.addComputer("brand", "model");
+        int expectedSizeAfterAdding = 1;
+        computers = cs.getAllComputers();
+        assertEquals(expectedSizeAfterAdding, computers.size());
+    }
+
+    @Test
+    void reserveComputer() throws ComputerMissingFieldsException, ComputerNotAvailableException {
+        ComputerService cs = new ComputerService();
+        cs.addComputer("brand", "model");
+        cs.reserveComputer(1);
+        int expectedAvailable = 0;
+        assertEquals(expectedAvailable, cs.getAllAvailableComputers().size());
     }
 }

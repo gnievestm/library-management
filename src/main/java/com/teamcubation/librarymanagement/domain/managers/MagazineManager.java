@@ -10,10 +10,10 @@ import java.util.List;
 
 public class MagazineManager {
 
-    private List<Magazine> magazines = new ArrayList<>();
-    private List<Magazine> magazinesAvailable = new ArrayList<>();
-    private List<Magazine> magazinesBorrowed = new ArrayList<>();
-    private List<BorrowMagazine> magazinesStatus = new ArrayList<>();
+    private final List<Magazine> magazines = new ArrayList<>();
+    private final List<Magazine> magazinesAvailable = new ArrayList<>();
+    private final List<Magazine> magazinesBorrowed = new ArrayList<>();
+    private final List<BorrowMagazine> magazinesStatus = new ArrayList<>();
 
     public List<BorrowMagazine> getMagazinesStatus() {
         return magazinesStatus;

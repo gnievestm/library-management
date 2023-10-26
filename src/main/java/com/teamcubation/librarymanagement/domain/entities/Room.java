@@ -7,9 +7,9 @@ import java.util.Objects;
 
 public class Room {
     private static int roomIds = 0;
-    private String name;
-    private String address;
-    private int id;
+    private final String name;
+    private final String address;
+    private final int id;
 
     public Room(int id, String name, String address) throws RoomIncompleteFieldsException, RoomInvalidIdException {
 
@@ -21,13 +21,14 @@ public class Room {
         this.name = name;
         this.address = address;
 
-        if (id<=0) {
+        if (id <= 0) {
             throw new RoomInvalidIdException();
         } else {
             this.id = id;
         }
 
     }
+
     public Room(String name, String address) throws RoomIncompleteFieldsException {
 
 
