@@ -41,6 +41,7 @@ public class RoomService implements IRoomPort {
     }
 
     @Override
-    public void reserveRoom(Room room) {
+    public void reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException {
+        this.roomManager.reserveRoom(room);
     }
 }
