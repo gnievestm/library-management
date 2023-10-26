@@ -16,7 +16,7 @@ public class RoomServiceTest {
     @Test
     void addRoom() throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomAlreadyExistsException {
 
-        RoomService roomService = RoomService.getInstance();
+        RoomService roomService = new RoomService();
         Room room = new Room(1, "name", "address");
         roomService.addRoom(1, "name", "address");
 
@@ -30,7 +30,7 @@ public class RoomServiceTest {
     void addAnAvailableRoom() {
 
         assertThrows(RoomAlreadyExistsException.class, () -> {
-            RoomService roomService = RoomService.getInstance();
+            RoomService roomService = new RoomService();
             Room room = new Room(2, "name", "address");
             roomService.addRoom(2,"name", "address");
             roomService.addRoom(2,"name", "address");

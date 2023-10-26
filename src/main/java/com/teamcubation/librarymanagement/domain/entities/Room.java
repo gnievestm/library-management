@@ -1,5 +1,7 @@
 package com.teamcubation.librarymanagement.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomIncompleteFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomInvalidIdException;
 
@@ -11,34 +13,32 @@ public class Room {
     private String address;
     private int id;
 
-    public Room(int id, String name, String address) throws RoomIncompleteFieldsException, RoomInvalidIdException {
-
+    @JsonCreator
+    public Room(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("address") String address) throws RoomIncompleteFieldsException, RoomInvalidIdException {
 
         if (name == null || address == null || name.isEmpty() || address.isEmpty()) {
             throw new RoomIncompleteFieldsException();
         }
 
-        this.name = name;
-        this.address = address;
-
-        if (id<=0) {
+        if (id <= 0 ) {
             throw new RoomInvalidIdException();
         } else {
             this.id = id;
         }
 
+        this.name = name;
+        this.address = address;
     }
+    
     public Room(String name, String address) throws RoomIncompleteFieldsException {
-
 
         if (name == null || address == null || name.isEmpty() || address.isEmpty()) {
             throw new RoomIncompleteFieldsException();
         }
 
+        this.id = ++Room.roomIds;
         this.name = name;
         this.address = address;
-        this.id = Room.roomIds++;
-
     }
 
     public String getName() {
