@@ -8,7 +8,7 @@ public class BookService {
 
     static BookService instance;
 
-    private BookManager BookManager;
+    private final BookManager BookManager;
 
     public static BookService getInstance() {
         if (instance == null)
@@ -33,7 +33,7 @@ public class BookService {
         this.BookManager.addBook(book);
     }
 
-    public int countBook(){
+    public int countBook() {
         return BookManager.countBook();
     }
 
