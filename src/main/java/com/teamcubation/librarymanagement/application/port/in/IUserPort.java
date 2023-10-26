@@ -5,8 +5,9 @@ import com.teamcubation.librarymanagement.domain.entities.User;
 import java.util.List;
 
 public interface IUserPort {
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 
-    public User getUserById(int id);
-    public void createUser(User user);
+    User getUserById(int id);
+
+    void createUser(User user);
 }
