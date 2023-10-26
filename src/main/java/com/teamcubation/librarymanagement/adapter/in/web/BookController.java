@@ -22,7 +22,7 @@ public class BookController {
     }
 
     @GetMapping(path = "/api/books")
-    public ResponseEntity<List<Book>> getAllBooks(){
+    public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(bookPort.getAllBooks());
     }
 
@@ -31,13 +31,15 @@ public class BookController {
         bookPort.addBook(book);
         return ResponseEntity.ok(book);
     }
+
     @PostMapping(path = "/api/books/borrowedBooks")
     public ResponseEntity<Integer> addBorrowedBook(@RequestBody int idBook) throws BookAlreadyBorrowed, NotExistBookException {
         bookPort.addBorrowedBook(idBook);
         return ResponseEntity.ok(idBook);
     }
+
     @GetMapping(path = "/api/books/borrowedBooks")
-    public ResponseEntity<List<Book>> getBorrowedBooks(){
+    public ResponseEntity<List<Book>> getBorrowedBooks() {
         return ResponseEntity.ok(bookPort.getBorrowedBooks());
     }
 }

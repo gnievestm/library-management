@@ -8,8 +8,10 @@ import com.teamcubation.librarymanagement.domain.exceptions.room.RoomNotFoundExc
 import java.util.List;
 
 public interface IRoomPort {
-    public List<Room> getAllRooms();
-    public void createRoom(Room room) throws RoomAlreadyExistsException;
-    public void reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException;
+    List<Room> getAllRooms();
+
+    void createRoom(Room room) throws RoomAlreadyExistsException;
+
+    void reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException;
 
 }

@@ -1,8 +1,7 @@
 package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Computer;
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExists;
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExistsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
 
@@ -19,9 +18,9 @@ public class ComputerManager {
         reservedComputers = new ArrayList<>();
     }
 
-    public boolean addComputer(String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidID, ComputerAlreadyExists {
+    public boolean addComputer(String brand, String model) throws ComputerMissingFieldsException, ComputerAlreadyExistsException {
         Computer computer = new Computer(computerIds++, brand, model);
-        if (computerList.contains(computer)) throw new ComputerAlreadyExists();
+        if (computerList.contains(computer)) throw new ComputerAlreadyExistsException();
         computerList.add(computer);
         return true;
     }
@@ -39,11 +38,9 @@ public class ComputerManager {
 
     public boolean existComputer(int id) {
         for (Computer c : computerList)
-            if (c.getId() == id)
-                return true;
+            if (c.getId() == id) return true;
         for (Computer c : reservedComputers)
-            if (c.getId() == id)
-                return true;
+            if (c.getId() == id) return true;
         return false;
     }
 
