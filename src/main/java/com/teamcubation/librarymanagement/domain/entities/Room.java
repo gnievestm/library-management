@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public class Room {
     private static int roomIds = 0;
-    private String name;
-    private String address;
-    private int id;
+    private final String name;
+    private final String address;
+    private final int id;
 
     @JsonCreator
     public Room(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("address") String address) throws RoomIncompleteFieldsException, RoomInvalidIdException {
@@ -29,7 +29,7 @@ public class Room {
         this.name = name;
         this.address = address;
     }
-    
+  
     public Room(String name, String address) throws RoomIncompleteFieldsException {
 
         if (name == null || address == null || name.isEmpty() || address.isEmpty()) {
