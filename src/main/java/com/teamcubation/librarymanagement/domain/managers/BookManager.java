@@ -22,6 +22,9 @@ public class BookManager {
         return true;
     }
 
+    public List<Book> getAllBooks(){
+        return this.books;
+    }
     public boolean existBook(Book book) {
         return books.contains(book);
     }
