@@ -6,10 +6,10 @@ import java.time.*;
 
 public class Book {
     static int predefinedBookId = 0;
-    private int bookId;
-    private String author;
-    private String title;
-    private Year yearOfPublishing;
+    private final int bookId;
+    private final String author;
+    private final String title;
+    private final Year yearOfPublishing;
 
     public Book(String title, String author, String yearOfPublishing) {
         this.bookId = Book.predefinedBookId++;
