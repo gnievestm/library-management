@@ -43,16 +43,17 @@ public class MagazineService implements IMagazinePort {
         return this.magazineManager.addMagazine(magazine);
     }
 
-    public boolean existMagazine(Magazine magazine) {
-        return magazineManager.existMagazine(magazine);
+    public boolean existMagazine(int id) {
+        return magazineManager.existMagazine(id);
     }
 
     public int magazinesCount() {
         return magazineManager.magazinesCount();
     }
 
-    public boolean borrowMagazine(Magazine magazine) throws MagazineNotAvailableException {
-        return magazineManager.existMagazine(magazine) && this.magazineManager.borrowMagazine(magazine);
+    public boolean borrowMagazine(int id) throws MagazineNotAvailableException {
+
+        return magazineManager.existMagazine(id) && this.magazineManager.borrowMagazine(id);
     }
 
     public int getAvailableMagazinesCount() {
@@ -71,8 +72,8 @@ public class MagazineService implements IMagazinePort {
         return magazineManager.searchMagazine(name);
     }
 
-    public boolean returnMagazine(Magazine magazine) {
-        return magazineManager.existMagazine(magazine) && magazineManager.returnMagazine(magazine);
+    public boolean returnMagazine(int id) {
+        return magazineManager.existMagazine(id) && magazineManager.returnMagazine(id);
     }
 
     @Override

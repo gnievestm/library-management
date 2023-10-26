@@ -41,7 +41,7 @@ public class MagazineTest {
         magazineService.addMagazine(magazine);
         int availableBeforeBorrow = magazineService.getAvailableMagazinesCount();
         int borrowedBeforeBorrow = magazineService.getBorrowedMagazinesCount();
-        magazineService.borrowMagazine(magazine);
+        magazineService.borrowMagazine(magazine.getId());
         int availableAfterBorrow = magazineService.getAvailableMagazinesCount();
         int borrowedAfterBorrow = magazineService.getBorrowedMagazinesCount();
         assertEquals(availableBeforeBorrow - 1, availableAfterBorrow);
@@ -82,7 +82,7 @@ public class MagazineTest {
         MagazineService magazineService = new MagazineService();
         Magazine magazine = new Magazine("leo", new Date());
         magazineService.addMagazine(magazine);
-        magazineService.borrowMagazine(magazine);
-        assertTrue(magazineService.returnMagazine(magazine));
+        magazineService.borrowMagazine(magazine.getId());
+        assertTrue(magazineService.returnMagazine(magazine.getId()));
     }
 }

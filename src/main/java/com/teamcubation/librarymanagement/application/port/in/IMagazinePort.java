@@ -14,6 +14,6 @@ public interface IMagazinePort {
 
     public Magazine searchMagazine(String name) throws MagazineNotExistException;
     public boolean addMagazine(Magazine magazine) throws MagazineAttributeMissingException;
-    public boolean borrowMagazine(Magazine magazine) throws MagazineNotAvailableException;
-    public boolean returnMagazine(Magazine magazine);
+    public boolean borrowMagazine(int id) throws MagazineNotAvailableException;
+    public boolean returnMagazine(int id);
 }

@@ -41,11 +41,14 @@ public class MagazineManager {
         return true;
     }
 
-    public boolean existMagazine(Magazine magazine) {
-        return magazines.contains(magazine);
+    public boolean existMagazine(int id) {
+        for (Magazine m : magazines)
+            if (m.getId() == id) return true;
+
+        return false;
     }
 
-    public List<BorrowMagazine>getAllMagazinesAndStatus() {
+    public List<BorrowMagazine> getAllMagazinesAndStatus() {
         return magazinesStatus;
     }
 
@@ -53,7 +56,10 @@ public class MagazineManager {
         return magazines.size();
     }
 
-    public boolean borrowMagazine(Magazine magazine) throws MagazineNotAvailableException {
+    public boolean borrowMagazine(int id) throws MagazineNotAvailableException {
+        Magazine magazine = this.findMagazine(id);
+        if (magazine == null) return false;
+
         magazinesAvailable.remove(magazine);
         magazinesBorrowed.add(magazine);
 
@@ -63,6 +69,7 @@ public class MagazineManager {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -71,6 +78,12 @@ public class MagazineManager {
         magazinesAvailable.add(magazine);
         magazinesStatus.add(borrowMagazine);
         return true;
+    }
+
+    public Magazine findMagazine(int id) {
+        for (Magazine m : magazines)
+            if (m.getId() == id) return m;
+        return null;
     }
 
     public Magazine searchMagazine(String name) throws MagazineNotExistException {
@@ -82,17 +95,17 @@ public class MagazineManager {
         throw new MagazineNotExistException();
     }
 
-    public boolean returnMagazine(Magazine magazine) {
-
+    public boolean returnMagazine(int id) {
+        Magazine magazine = findMagazine(id);
+        if (magazine == null) return false;
         magazinesAvailable.add(magazine);
         magazinesBorrowed.remove(magazine);
 
         for (BorrowMagazine status : magazinesStatus) {
             if (status.getMagazine().equals(magazine)) {
                 status.setBorrow(true);
-                return true;
             }
         }
-        return false;
+        return true;
     }
 }
