@@ -4,15 +4,15 @@ import com.teamcubation.librarymanagement.domain.entities.Book;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
 import com.teamcubation.librarymanagement.domain.managers.BookManager;
 
+import java.util.List;
+
 public class BookService {
 
     static BookService instance;
-
     private BookManager BookManager;
 
     public static BookService getInstance() {
-        if (instance == null)
-            instance = new BookService();
+        if (instance == null) instance = new BookService();
         return instance;
     }
 
@@ -21,8 +21,7 @@ public class BookService {
     }
 
     public void addBook(String title, String author, String publishYear) throws BookSomeEmptyAttributeException {
-        if (title.isEmpty() || author.isEmpty() || publishYear.isEmpty())
-            throw new BookSomeEmptyAttributeException();
+        if (title.isEmpty() || author.isEmpty() || publishYear.isEmpty()) throw new BookSomeEmptyAttributeException();
         Book book = new Book(title, author, publishYear);
         this.BookManager.addBook(book);
     }
@@ -33,11 +32,20 @@ public class BookService {
         this.BookManager.addBook(book);
     }
 
-    public int countBook(){
+    public List<Book> getAvailableBooks() {
+        return BookManager.getAvailableBooks();
+    }
+
+    public List<Book> getBorrowedBooks() {
+        return BookManager.getBorrowedBooks();
+    }
+
+    public int countBook() {
         return BookManager.countBook();
     }
 
     public boolean existBook(Book book) {
         return BookManager.existBook(book);
     }
+
 }
