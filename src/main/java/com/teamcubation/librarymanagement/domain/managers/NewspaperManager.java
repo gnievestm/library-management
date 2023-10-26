@@ -17,7 +17,7 @@ public class NewspaperManager {
     }
 
     public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadline {
-        if (Objects.equals(newEntry.getDate(), "") || Objects.equals(newEntry.getHeadline(), "")){
+        if (newEntry.getDate().equals("")|| newEntry.getHeadline().equals("")){
             throw new MissingDateOrHeadline();
         }
         catalogue.add(newEntry);
