@@ -2,7 +2,9 @@ package com.teamcubation.librarymanagement.adapter.in.web;
 
 import com.teamcubation.librarymanagement.application.port.in.IBookPort;
 import com.teamcubation.librarymanagement.domain.entities.Book;
+import com.teamcubation.librarymanagement.domain.exceptions.book.BookAlreadyBorrowed;
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
+import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,5 +31,13 @@ public class BookController {
         bookPort.addBook(book);
         return ResponseEntity.ok(book);
     }
-
+    @PostMapping(path = "/api/books/borrowedBooks")
+    public ResponseEntity<Integer> addBorrowedBook(@RequestBody int idBook) throws BookAlreadyBorrowed, NotExistBookException {
+        bookPort.addBorrowedBook(idBook);
+        return ResponseEntity.ok(idBook);
+    }
+    @GetMapping(path = "/api/books/borrowedBooks")
+    public ResponseEntity<List<Book>> getBorrowedBooks(){
+        return ResponseEntity.ok(bookPort.getBorrowedBooks());
+    }
 }

@@ -45,20 +45,27 @@ public class BookManager {
     public List<Book> getAllBooks(){
         return this.books;
     }
-    public boolean existBook(Book book) {
-        return books.contains(book);
+    public boolean existBook(int idBook) {
+        for(Book book: books)
+            if(book.getBookId() ==  idBook)
+                return true;
+        return false;
     }
 
     public int countBook() {
         return books.size();
     }
 
-    public boolean addBorrowedBook(Book book) {
-        if (borrowedBooks.contains(book)) {
-            return false;
+    public boolean addBorrowedBook(int idBook) {
+        for(Book book:books){
+            if (borrowedBooks.contains(book)) {
+                return false;
+            }
+            if(book.getBookId()==idBook){
+                availableBooks.remove(book);
+                borrowedBooks.add(book);
+            }
         }
-        availableBooks.remove(book);
-        borrowedBooks.add(book);
         return true;
     }
     public boolean returnBorrowedBook(Book book) throws ReturnABookthatIsNotBorrowed {
