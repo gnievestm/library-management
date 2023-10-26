@@ -110,7 +110,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void searchABookByTitleEmptyTitle() throws SearchABookByEmptyTitle {
+    public void searchABookByTitleEmptyTitle() {
         BookService bookService=BookService.getInstance();
         assertThrows(SearchABookByEmptyTitle.class,()->{
             bookService.searchBookByTitle("");
