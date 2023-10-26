@@ -16,7 +16,6 @@ public class MagazineService {
         return instance;
     }
 
-
     public MagazineService() {
 
         this.magazineManager = new MagazineManager();
@@ -38,5 +37,4 @@ public class MagazineService {
     public int sizeMagazine() {
         return magazineManager.magazinesCount();
     }
-
 }

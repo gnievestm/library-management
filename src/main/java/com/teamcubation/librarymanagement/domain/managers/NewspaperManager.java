@@ -6,7 +6,6 @@ import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class NewspaperManager {
 
@@ -18,11 +17,11 @@ public class NewspaperManager {
         inUse = new ArrayList<>();
     }
 
-    public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadline, NewspaperDuplicated {
+    public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadlineException, NewspaperDuplicatedException {
         if (newEntry.getHeadline().equals("") || newEntry.getDate().equals("")){
-            throw new MissingDateOrHeadline();
+            throw new MissingDateOrHeadlineException();
         } else if (catalogue.contains(newEntry)) {
-            throw new NewspaperDuplicated();
+            throw new NewspaperDuplicatedException();
         }
         catalogue.add(newEntry);
         return true;
@@ -36,25 +35,25 @@ public class NewspaperManager {
         return catalogue.contains(entry);
     }
 
-    public boolean borrowNewspaper(Newspaper newspaper) throws NewspaperAlreadyBorrowed {
+    public boolean borrowNewspaper(Newspaper newspaper) throws NewspaperAlreadyBorrowedException {
         if (inUse.contains(newspaper)) {
-            throw new NewspaperAlreadyBorrowed();
+            throw new NewspaperAlreadyBorrowedException();
         } else {
             inUse.add(newspaper);
         }
         return true;
     }
 
-    public boolean searchForNewspaperHeadline(String headline) throws MissingDateOrHeadline, NewspaperNotFound{
+    public boolean searchForNewspaperHeadline(String headline) throws MissingDateOrHeadlineException, NewspaperNotFoundException {
         if (catalogue.stream().noneMatch(Newspaper -> Objects.equals(Newspaper.getHeadline(), headline))){
-            throw new NewspaperNotFound();
+            throw new NewspaperNotFoundException();
         }
         return true;
     }
 
-    public boolean returnBorrowNewspaper(Newspaper newspaper) throws NewspaperIsNotPossibleToReturn {
+    public boolean returnBorrowNewspaper(Newspaper newspaper) throws NewspaperIsNotPossibleToReturnException {
         if (!inUse.contains(newspaper)) {
-            throw new NewspaperIsNotPossibleToReturn();
+            throw new NewspaperIsNotPossibleToReturnException();
         }
         inUse.remove(newspaper);
         catalogue.add(newspaper);

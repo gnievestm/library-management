@@ -1,8 +1,8 @@
 package com.teamcubation.librarymanagement.domain.exceptions.Newspaper;
 
-public class NewspaperAlreadyBorrowed extends Exception{
+public class NewspaperAlreadyBorrowedException extends Exception{
 
-    public NewspaperAlreadyBorrowed(){
+    public NewspaperAlreadyBorrowedException(){
         super("This newspaper is not available");
     }
 }

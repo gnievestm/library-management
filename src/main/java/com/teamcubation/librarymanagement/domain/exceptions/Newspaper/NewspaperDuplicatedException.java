@@ -1,7 +1,7 @@
 package com.teamcubation.librarymanagement.domain.exceptions.Newspaper;
 
-public class NewspaperDuplicated extends Exception{
-    public NewspaperDuplicated(){
+public class NewspaperDuplicatedException extends Exception{
+    public NewspaperDuplicatedException(){
         super("You can´t add a entry that already exist");
     }
 }
