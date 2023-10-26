@@ -4,6 +4,7 @@ import com.teamcubation.librarymanagement.application.port.in.IRoomPort;
 import com.teamcubation.librarymanagement.domain.entities.Room;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomAlreadyExistsException;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomAlreadyReservedException;
+import com.teamcubation.librarymanagement.domain.exceptions.room.RoomIncompleteFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.room.RoomNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class RoomController {
     }
 
     @PostMapping(path = "/api/rooms/reserve")
-    public ResponseEntity<Room> reserveRoom(@RequestBody Room room) throws RoomNotFoundException, RoomAlreadyReservedException {
-
+    public ResponseEntity<Room> reserveRoom(@RequestParam String address, @RequestParam String name) throws RoomNotFoundException, RoomAlreadyReservedException, RoomIncompleteFieldsException {
+        Room room = new Room(name, address);
         roomPort.reserveRoom(room);
         return ResponseEntity.ok(room);
     }
@@ -36,21 +37,6 @@ public class RoomController {
     @GetMapping(path = "/api/rooms")
     public ResponseEntity<List<Room>> getAllRooms() {
         return ResponseEntity.ok(roomPort.getAllRooms());
-    }
-
-    @ExceptionHandler(RoomAlreadyReservedException.class)
-    public ResponseEntity<String> handleRoomAlreadyReservedException() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La sala ya ha sido reservada");
-    }
-
-    @ExceptionHandler(RoomAlreadyExistsException.class)
-    public ResponseEntity<String> handleRoomAlreadyExistsException() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La sala ya existe");
-    }
-
-    @ExceptionHandler(RoomNotFoundException.class)
-    public ResponseEntity<String> handleRoomNotFoundException() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se encontro la sala");
     }
 }
 
