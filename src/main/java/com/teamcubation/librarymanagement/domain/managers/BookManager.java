@@ -9,9 +9,9 @@ import java.util.List;
 
 public class BookManager {
 
-    private List<Book> books;
-    private List<Book> borrowedBooks;
-    private List<Book> availableBooks;
+    private final List<Book> books;
+    private final List<Book> borrowedBooks;
+    private final List<Book> availableBooks;
 
     public BookManager() {
         books = new ArrayList<>();

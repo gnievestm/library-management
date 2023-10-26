@@ -17,7 +17,7 @@ public class Room {
         if (name == null || address == null || name.isEmpty() || address.isEmpty()) {
             throw new RoomIncompleteFieldsException();
         }
-        
+
         this.name = name;
         this.address = address;
     }
