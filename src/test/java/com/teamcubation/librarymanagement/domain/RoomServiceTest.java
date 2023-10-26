@@ -73,9 +73,8 @@ public class RoomServiceTest {
     void listAvailableRoomsWithoutRooms() {
 
         RoomManager roomManager = new RoomManager();
-
-        assertNull(roomManager.getAvailableRooms());
+        int expected = 0;
+        assertEquals(0, roomManager.getAvailableRooms().size());
 
     }
-
 }
