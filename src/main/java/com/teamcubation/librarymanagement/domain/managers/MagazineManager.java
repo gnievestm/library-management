@@ -45,7 +45,7 @@ public class MagazineManager {
         return magazines.contains(magazine);
     }
 
-    public List getAllMagazinesAndStatus() {
+    public List<BorrowMagazine>getAllMagazinesAndStatus() {
         return magazinesStatus;
     }
 

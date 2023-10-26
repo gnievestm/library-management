@@ -2,12 +2,12 @@ package com.teamcubation.librarymanagement.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.teamcubation.librarymanagement.application.service.MagazineService;
 import com.teamcubation.librarymanagement.domain.entities.BorrowMagazine;
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotAvailableException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotExistException;
-import com.teamcubation.librarymanagement.service.MagazineService;
 
 import java.util.ArrayList;
 import java.util.Date;
