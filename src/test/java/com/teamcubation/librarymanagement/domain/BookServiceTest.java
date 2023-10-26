@@ -78,7 +78,7 @@ public class BookServiceTest {
         BookService bookService = BookService.getInstance();
         bookService.addBook(bookToBorrow3);
         bookService.addBorrowedBook(bookToBorrow3.getBookId());
-        bookService.returnBorrowedBook(bookToBorrow3);
+        bookService.returnBorrowedBook(bookToBorrow3.getBookId());
         List<Book> result = bookService.getBorrowedBooks();
         assertEquals(0, result.size());
     }
@@ -89,7 +89,7 @@ public class BookServiceTest {
         BookService bookService = BookService.getInstance();
         bookService.addBook(bookToBorrow4);
         assertThrows(ReturnABookthatIsNotBorrowed.class, () -> {
-            bookService.returnBorrowedBook(bookToBorrow4);
+            bookService.returnBorrowedBook(bookToBorrow4.getBookId());
         });
     }
 
@@ -98,7 +98,7 @@ public class BookServiceTest {
         Book bookToBorrow5 = new Book("La eduación de la voluntad", "Author", "2020");
         BookService bookService = BookService.getInstance();
         assertThrows(NotExistBookException.class, () -> {
-            bookService.returnBorrowedBook(bookToBorrow5);
+            bookService.returnBorrowedBook(bookToBorrow5.getBookId());
         });
     }
 
