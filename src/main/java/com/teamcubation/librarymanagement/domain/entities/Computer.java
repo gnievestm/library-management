@@ -6,8 +6,8 @@ import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMis
 public class Computer {
 
     static int computerID = 0;
-    private String brand;
-    private String model;
+    private final String brand;
+    private final String model;
 
     public Computer(int computerID, String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidIDException {
         if (brand == null || model == null) {
@@ -16,7 +16,7 @@ public class Computer {
         if (computerID <= 0) {
             throw new ComputerInvalidIDException();
         }
-        this.computerID = Computer.computerID++;
+        Computer.computerID = Computer.computerID++;
         this.brand = brand;
         this.model = model;
     }
@@ -38,6 +38,6 @@ public class Computer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Computer computer = (Computer) o;
-        return computerID == (computer.computerID);
+        return computerID == (computer.getComputerID());
     }
 }
