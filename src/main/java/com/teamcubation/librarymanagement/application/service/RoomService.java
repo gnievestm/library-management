@@ -6,6 +6,7 @@ import com.teamcubation.librarymanagement.domain.exceptions.room.*;
 import com.teamcubation.librarymanagement.domain.managers.RoomManager;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +28,10 @@ public class RoomService implements IRoomPort {
 
     @Override
     public List<Room> getAllRooms() {
-        return null;
+        List <Room> rooms = new ArrayList<>();
+        rooms.addAll(this.roomManager.getAvailableRooms());
+        rooms.addAll(this.roomManager.getReservedRooms());
+        return rooms;
     }
 
     @Override

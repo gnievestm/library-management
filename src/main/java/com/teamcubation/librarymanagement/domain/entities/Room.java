@@ -29,7 +29,7 @@ public class Room {
         this.name = name;
         this.address = address;
     }
-    
+
     public Room(String name, String address) throws RoomIncompleteFieldsException {
 
         if (name == null || address == null || name.isEmpty() || address.isEmpty()) {

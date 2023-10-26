@@ -6,6 +6,8 @@ import com.teamcubation.librarymanagement.domain.exceptions.room.RoomAlreadyExis
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class RoomController {
 
@@ -20,5 +22,10 @@ public class RoomController {
          roomPort.createRoom(room);
          return ResponseEntity.ok(room);
      }
+
+    @GetMapping(path = "/api/rooms")
+    public ResponseEntity<List<Room>> getAllRooms() {
+        return ResponseEntity.ok(roomPort.getAllRooms());
+    }
 }
 
