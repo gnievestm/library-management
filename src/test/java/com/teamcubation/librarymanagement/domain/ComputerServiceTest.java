@@ -1,9 +1,8 @@
 package com.teamcubation.librarymanagement.domain;
 
-import com.teamcubation.librarymanagement.domain.entities.Computer;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
-import com.teamcubation.librarymanagement.service.ComputerService;
+import com.teamcubation.librarymanagement.application.service.ComputerService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

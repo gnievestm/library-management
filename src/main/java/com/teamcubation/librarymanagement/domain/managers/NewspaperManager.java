@@ -9,7 +9,7 @@ import java.util.List;
 
 public class NewspaperManager {
 
-    private List<Newspaper> catalogue;
+    private final List<Newspaper> catalogue;
 
     public NewspaperManager() {
         catalogue = new ArrayList<>();

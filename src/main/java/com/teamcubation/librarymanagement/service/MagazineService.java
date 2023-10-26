@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MagazineService {
     static MagazineService instance;
-    private MagazineManager magazineManager;
+    private final MagazineManager magazineManager;
 
     public static MagazineService getInstance() {
         if (instance == null) instance = new MagazineService();

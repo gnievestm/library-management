@@ -9,8 +9,8 @@ import java.util.List;
 
 public class ComputerManager {
     private int computerIds = 1;
-    private List<Computer> computerList;
-    private List<Computer> reservedComputers;
+    private final List<Computer> computerList;
+    private final List<Computer> reservedComputers;
 
     public ComputerManager() {
         computerList = new ArrayList<>();

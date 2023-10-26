@@ -4,9 +4,9 @@ import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMis
 
 public class Computer {
 
-    private int id;
-    private String brand;
-    private String model;
+    private final int id;
+    private final String brand;
+    private final String model;
 
     public Computer(int id, String brand, String model) throws ComputerMissingFieldsException {
         if (brand == null || model == null) {
