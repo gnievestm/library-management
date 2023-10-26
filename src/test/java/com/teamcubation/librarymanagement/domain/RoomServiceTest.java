@@ -17,13 +17,12 @@ public class RoomServiceTest {
     void addRoom() throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomAlreadyExistsException {
 
         RoomService roomService = new RoomService();
-        Room room = new Room(1, "name", "address");
-        roomService.addRoom(1, "name", "address");
+        Room room = new Room("name", "address");
+        roomService.addRoom("name", "address");
 
         boolean found = roomService.existRoom(room);
 
         assertTrue(found);
-
     }
 
     @Test
@@ -31,18 +30,9 @@ public class RoomServiceTest {
 
         assertThrows(RoomAlreadyExistsException.class, () -> {
             RoomService roomService = new RoomService();
-            Room room = new Room(2, "name", "address");
-            roomService.addRoom(2,"name", "address");
-            roomService.addRoom(2,"name", "address");
-        });
-
-    }
-
-    @Test
-    void addRoomInvalidId() {
-
-        assertThrows(RoomInvalidIdException.class, () -> {
-            Room room = new Room(-1, "name", "address");
+            Room room = new Room("name", "address");
+            roomService.addRoom("name", "address");
+            roomService.addRoom("name", "address");
         });
 
     }
@@ -50,18 +40,18 @@ public class RoomServiceTest {
     @Test
     void addRoomWithoutAllFields() {
 
-       assertThrows(RoomIncompleteFieldsException.class, () -> {
+        assertThrows(RoomIncompleteFieldsException.class, () -> {
             Room room = new Room(null, "address");
-       });
+        });
 
     }
 
     @Test
     void listRooms() throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomNotFoundException, RoomAlreadyReservedException, RoomAlreadyExistsException {
 
-        List <Room> testAvailableRooms = new ArrayList<>();
-        Room room1 = new Room(1, "name", "address");
-        Room room2 = new Room(2, "name", "address");
+        List<Room> testAvailableRooms = new ArrayList<>();
+        Room room1 = new Room("name", "address");
+        Room room2 = new Room("name2", "address");
 
         testAvailableRooms.add(room2);
 
@@ -71,7 +61,7 @@ public class RoomServiceTest {
 
         roomManager.reserveRoom(room1);
 
-        List <Room> testReservedRooms = new ArrayList<>();
+        List<Room> testReservedRooms = new ArrayList<>();
         testReservedRooms.add(room1);
 
         assertEquals(testAvailableRooms, roomManager.getAvailableRooms());
