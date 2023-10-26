@@ -1,10 +1,7 @@
 package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.entities.Book;
-import com.teamcubation.librarymanagement.domain.exceptions.book.BookAlreadyBorrowed;
-import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
-import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookException;
-import com.teamcubation.librarymanagement.domain.exceptions.book.ReturnABookthatIsNotBorrowed;
+import com.teamcubation.librarymanagement.domain.exceptions.book.*;
 import com.teamcubation.librarymanagement.service.BookService;
 import org.junit.jupiter.api.Test;
 
@@ -102,6 +99,21 @@ public class BookServiceTest {
         BookService bookService = BookService.getInstance();
         assertThrows(NotExistBookException.class, () -> {
             bookService.returnBorrowedBook(bookToBorrow5);
+        });
+    }
+
+    @Test
+    public void searchABookByTitleCorrectBehavior() throws SearchABookByEmptyTitle {
+        BookService bookService=BookService.getInstance();
+        List <Book> result=bookService.searchBookByTitle("La");
+        assertEquals("[Book{ title=La biblia,author='sin autor',yearOfPublishing='1000'}, Book{ title=la divina comedia,author='Dante',yearOfPublishing='1950'}]",result.toString());
+    }
+
+    @Test
+    public void searchABookByTitleEmptyTitle() throws SearchABookByEmptyTitle {
+        BookService bookService=BookService.getInstance();
+        assertThrows(SearchABookByEmptyTitle.class,()->{
+            bookService.searchBookByTitle("");
         });
     }
 }

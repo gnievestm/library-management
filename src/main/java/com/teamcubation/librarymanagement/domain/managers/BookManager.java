@@ -27,6 +27,14 @@ public class BookManager {
         return true;
     }
 
+    public List<Book> searchBookByTitle(String title){
+        List<Book> foundedBooks=new ArrayList<>();
+        for(Book book:books)
+            if(book.getTitle().toLowerCase().contains(title.toLowerCase()))
+                foundedBooks.add(book);
+        return foundedBooks;
+    }
+
     public List<Book> getAvailableBooks() {
         return this.availableBooks;
     }

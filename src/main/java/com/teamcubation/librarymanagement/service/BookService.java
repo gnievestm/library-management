@@ -1,10 +1,7 @@
 package com.teamcubation.librarymanagement.service;
 
 import com.teamcubation.librarymanagement.domain.entities.Book;
-import com.teamcubation.librarymanagement.domain.exceptions.book.BookAlreadyBorrowed;
-import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
-import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookException;
-import com.teamcubation.librarymanagement.domain.exceptions.book.ReturnABookthatIsNotBorrowed;
+import com.teamcubation.librarymanagement.domain.exceptions.book.*;
 import com.teamcubation.librarymanagement.domain.managers.BookManager;
 
 import java.util.List;
@@ -59,6 +56,12 @@ public class BookService {
             throw new BookAlreadyBorrowed();
         }
         BookManager.addBorrowedBook(book);
+    }
+
+    public List<Book> searchBookByTitle(String title) throws SearchABookByEmptyTitle {
+        if(title.isEmpty())
+            throw new SearchABookByEmptyTitle();
+        return BookManager.searchBookByTitle(title);
     }
     public void returnBorrowedBook(Book book) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
         if(!BookManager.existBook(book)){
