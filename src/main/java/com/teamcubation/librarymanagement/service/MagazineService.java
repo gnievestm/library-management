@@ -18,7 +18,6 @@ public class MagazineService {
         return instance;
     }
 
-
     public MagazineService() {
         this.magazineManager = new MagazineManager();
     }

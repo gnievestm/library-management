@@ -16,8 +16,8 @@ public class RoomService implements IRoomPort {
         this.roomManager = new RoomManager();
     }
 
-    public void addRoom(int id, String name, String address) throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomAlreadyExistsException {
-        Room room = new Room(id, name, address);
+    public void addRoom(String name, String address) throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomAlreadyExistsException {
+        Room room = new Room(name, address);
         this.roomManager.addRoom(room);
     }
 
