@@ -1,16 +1,24 @@
 package com.teamcubation.librarymanagement.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 
 public class Computer {
 
-    private final int id;
-    private final String brand;
-    private final String model;
+    private int id;
+    private String brand;
+    private String model;
 
-    public Computer(int id, String brand, String model) throws ComputerMissingFieldsException {
+    @JsonCreator
+    public Computer(@JsonProperty("id") int id, @JsonProperty("brand") String brand, @JsonProperty("model") String model) throws ComputerMissingFieldsException, ComputerInvalidID {
         if (brand == null || model == null) {
             throw new ComputerMissingFieldsException();
+        }
+
+        if (id<=0){
+            throw new ComputerInvalidID();
         }
         this.id = id;
         this.brand = brand;

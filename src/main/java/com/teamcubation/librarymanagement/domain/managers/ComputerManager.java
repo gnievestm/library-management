@@ -1,6 +1,8 @@
 package com.teamcubation.librarymanagement.domain.managers;
 
 import com.teamcubation.librarymanagement.domain.entities.Computer;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExists;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
 
@@ -17,9 +19,9 @@ public class ComputerManager {
         reservedComputers = new ArrayList<>();
     }
 
-    public boolean addComputer(String brand, String model) throws ComputerMissingFieldsException {
+    public boolean addComputer(String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidID, ComputerAlreadyExists {
         Computer computer = new Computer(computerIds++, brand, model);
-        if (computerList.contains(computer)) return false;
+        if (computerList.contains(computer)) throw new ComputerAlreadyExists();
         computerList.add(computer);
         return true;
     }
