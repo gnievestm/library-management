@@ -8,6 +8,8 @@ import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMis
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ComputerController {
 
@@ -21,6 +23,16 @@ public class ComputerController {
     public ResponseEntity<Computer> addComputer (@RequestBody Computer computer) throws ComputerMissingFieldsException, ComputerInvalidID, ComputerAlreadyExists {
         computerPort.addComputer(computer);
         return ResponseEntity.ok(computer);
+   }
+
+   @GetMapping(path = "/api/computers")
+    public ResponseEntity<List<String>> getAllComputers() {
+        return ResponseEntity.ok(computerPort.getAllComputers());
+   }
+
+   @GetMapping(path = "/api/computersAvailable")
+    public ResponseEntity<List<String>> getAllAvailableComputers(){
+        return ResponseEntity.ok(computerPort.getAllAvailableComputers());
    }
 
 }
