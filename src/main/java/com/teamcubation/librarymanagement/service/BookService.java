@@ -44,18 +44,18 @@ public class BookService {
         return BookManager.countBook();
     }
 
-    public boolean existBook(Book book) {
-        return BookManager.existBook(book);
+    public boolean existBook(int id) {
+        return BookManager.existBook(id);
     }
 
-    public void addBorrowedBook(Book book) throws NotExistBookException, BookAlreadyBorrowed {
-        if(!BookManager.existBook(book)){
+    public void addBorrowedBook(int id) throws NotExistBookException, BookAlreadyBorrowed {
+        if(!BookManager.existBook(id)){
             throw new NotExistBookException();
         }
-        if(BookManager.getBorrowedBooks().contains(book)){
+        if(BookManager.getBorrowedBooks().contains(id)){
             throw new BookAlreadyBorrowed();
         }
-        BookManager.addBorrowedBook(book);
+        BookManager.addBorrowedBook(id);
     }
 
     public List<Book> searchBookByTitle(String title) throws SearchABookByEmptyTitle {
@@ -63,10 +63,10 @@ public class BookService {
             throw new SearchABookByEmptyTitle();
         return BookManager.searchBookByTitle(title);
     }
-    public void returnBorrowedBook(Book book) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
-        if(!BookManager.existBook(book)){
+    public void returnBorrowedBook(int id) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
+        if(!BookManager.existBook(id)){
             throw new NotExistBookException();
         }
-        BookManager.returnBorrowedBook(book);
+        BookManager.returnBorrowedBook(id);
     }
 }

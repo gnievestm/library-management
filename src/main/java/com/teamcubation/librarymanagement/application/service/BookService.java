@@ -73,10 +73,10 @@ public class BookService implements IBookPort {
         return BookManager.searchBookByTitle(title);
     }
 
-    public void returnBorrowedBook(Book book) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
-        if (!BookManager.existBook(book.getBookId())) {
+    public void returnBorrowedBook(int id) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
+        if (!BookManager.existBook(id)) {
             throw new NotExistBookException();
         }
-        BookManager.returnBorrowedBook(book);
+        BookManager.returnBorrowedBook(id);
     }
 }
