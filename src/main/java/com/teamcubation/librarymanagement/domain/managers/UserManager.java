@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserManager {
+
     private final List<User> users;
 
     public UserManager() {
@@ -13,8 +14,7 @@ public class UserManager {
     }
 
     public boolean addUser(User user) {
-        if (users.contains(user))
-            return false;
+        if (users.contains(user)) return false;
         users.add(user);
         return true;
     }
@@ -30,8 +30,7 @@ public class UserManager {
     public User findUserByName(String name) {
         User result = null;
         for (User user : this.users) {
-            if (user.getName().equals(name))
-                result = user;
+            if (user.getName().equals(name)) result = user;
         }
         return result;
     }
@@ -39,8 +38,7 @@ public class UserManager {
     public User findUserByUserName(String userName) {
         User result = null;
         for (User user : this.users) {
-            if (user.getUserName().equals(userName))
-                result = user;
+            if (user.getUserName().equals(userName)) result = user;
         }
         return result;
     }
@@ -48,8 +46,7 @@ public class UserManager {
     public User findUserById(int id) {
         User result = null;
         for (User user : this.users) {
-            if (user.getId() == id)
-                result = user;
+            if (user.getId() == id) result = user;
         }
         return result;
     }
@@ -57,8 +54,7 @@ public class UserManager {
     public List<Integer> getUserIdsByAge(int age) {
         List<Integer> ids = new ArrayList<>();
         for (User user : this.users) {
-            if (user.getAge() == age)
-                ids.add(user.getAge());
+            if (user.getAge() == age) ids.add(user.getAge());
         }
         return ids;
     }

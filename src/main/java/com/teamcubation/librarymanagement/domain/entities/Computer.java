@@ -1,29 +1,24 @@
 package com.teamcubation.librarymanagement.domain.entities;
 
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 
 public class Computer {
 
-    private int computerID = 0;
-    private String brand;
-    private String model;
-    
-    public Computer(int computerID, String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidID {
+    private final int id;
+    private final String brand;
+    private final String model;
+
+    public Computer(int id, String brand, String model) throws ComputerMissingFieldsException {
         if (brand == null || model == null) {
             throw new ComputerMissingFieldsException();
         }
-        if (computerID <= 0) {
-            throw new ComputerInvalidID();
-        }
-        this.computerID = computerID;
+        this.id = id;
         this.brand = brand;
         this.model = model;
     }
 
-    public int getComputerID() {
-        return computerID;
+    public int getId() {
+        return id;
     }
 
     public String getBrand() {
@@ -39,6 +34,15 @@ public class Computer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Computer computer = (Computer) o;
-        return computerID == (computer.computerID) && brand.equals(computer.brand) && model.equals(computer.model);
+        return id == (computer.id);
+    }
+
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "id = " + id + '\'' +
+                "brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                '}';
     }
 }

@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Newspaper {
 
-    private int id;
-    private String headline;
-    private String date;
+    private final int id;
+    private final String headline;
+    private final String date;
 
-    public Newspaper(int id, String headline, String date){
+    public Newspaper(int id, String headline, String date) {
         this.id = id;
         this.headline = headline;
         this.date = date;

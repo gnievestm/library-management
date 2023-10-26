@@ -6,10 +6,10 @@ import java.time.*;
 
 public class Book {
     static int predefinedBookId = 0;
-    private int bookId;
-    private String author;
-    private String title;
-    private Year yearOfPublishing;
+    private final int bookId;
+    private final String author;
+    private final String title;
+    private final Year yearOfPublishing;
 
     public Book(String title, String author, String yearOfPublishing) {
         this.bookId = Book.predefinedBookId++;
@@ -18,7 +18,7 @@ public class Book {
         this.yearOfPublishing = Year.parse(yearOfPublishing);
     }
 
-    private int getBookId() {
+    public int getBookId() {
         return bookId;
     }
 
@@ -43,6 +43,10 @@ public class Book {
         if (this == o) return true;
         if (!(o instanceof Book book)) return false;
         return bookId == ((Book) o).bookId;
+    }
+
+    public String toString() {
+        return "Book{" + "id="+bookId+", title=" + this.title + ",author='" + this.author + '\'' + ",yearOfPublishing='" + this.yearOfPublishing + '\'' + '}';
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.util.List;
 public class RoomService implements IRoomPort {
 
     private final RoomManager roomManager;
+    
     public RoomService() {
         this.roomManager = new RoomManager();
     }

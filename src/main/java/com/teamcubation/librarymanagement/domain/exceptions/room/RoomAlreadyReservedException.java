@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class RoomAlreadyReservedException extends Exception {
 
-    public RoomAlreadyReservedException () {
+    public RoomAlreadyReservedException() {
         super("The room it's already reserved");
     }
 }
