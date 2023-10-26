@@ -18,7 +18,6 @@ public class Room {
             throw new RoomIncompleteFieldsException();
         }
 
-        this.id = ++Room.roomIds;
         this.name = name;
         this.address = address;
     }
