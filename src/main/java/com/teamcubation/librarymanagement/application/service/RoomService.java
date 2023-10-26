@@ -1,28 +1,23 @@
 package com.teamcubation.librarymanagement.application.service;
 
+import com.teamcubation.librarymanagement.application.port.in.IRoomPort;
 import com.teamcubation.librarymanagement.domain.entities.Room;
-import com.teamcubation.librarymanagement.domain.exceptions.room.RoomAlreadyExistsException;
-import com.teamcubation.librarymanagement.domain.exceptions.room.RoomIncompleteFieldsException;
-import com.teamcubation.librarymanagement.domain.exceptions.room.RoomInvalidIdException;
+import com.teamcubation.librarymanagement.domain.exceptions.room.*;
 import com.teamcubation.librarymanagement.domain.managers.RoomManager;
+import org.springframework.stereotype.Service;
 
-public class RoomService {
+import java.util.List;
 
-    static RoomService instance;
+@Service
+public class RoomService implements IRoomPort {
+
     private final RoomManager roomManager;
-
-    public static RoomService getInstance() {
-        if (instance == null)
-            instance = new RoomService();
-        return instance;
-    }
-
-    private RoomService() {
+    public RoomService() {
         this.roomManager = new RoomManager();
     }
 
-    public void addRoom(int id, String name, String address) throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomAlreadyExistsException {
-        Room room = new Room(id, name, address);
+    public void addRoom(String name, String address) throws RoomIncompleteFieldsException, RoomInvalidIdException, RoomAlreadyExistsException {
+        Room room = new Room(name, address);
         this.roomManager.addRoom(room);
     }
 
@@ -30,4 +25,17 @@ public class RoomService {
         return roomManager.existRoom(room);
     }
 
+    @Override
+    public List<Room> getAllRooms() {
+        return null;
+    }
+
+    @Override
+    public void createRoom(Room room) throws RoomAlreadyExistsException {
+        this.roomManager.addRoom(room);
+    }
+
+    @Override
+    public void reserveRoom(Room room) {
+    }
 }
