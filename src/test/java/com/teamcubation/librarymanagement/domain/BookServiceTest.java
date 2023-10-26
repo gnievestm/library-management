@@ -21,7 +21,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void addBookWithSomeEmptyAttribute(){
+    public void addBookWithSomeEmptyAttribute() {
         BookService bookService = BookService.getInstance();
         assertThrows(BookSomeEmptyAttributeException.class, () -> {
             bookService.addBook("El hombre en busca de sentido", "", "2000");
@@ -34,8 +34,8 @@ public class BookServiceTest {
         bookService.getAvailableBooks();
 
         List<Book> result = bookService.getAvailableBooks();
-
-        assertEquals("[Book{ title=La biblia,author='sin autor',yearOfPublishing='1000'}, Book{ title=la divina comedia,author='Dante',yearOfPublishing='1950'}, Book{ title=Blancanieves,author='sin autor',yearOfPublishing='1000'}]",result.toString());
+        String expected = "[Book{id=0, title=La biblia,author='sin autor',yearOfPublishing='1000'}, Book{id=2, title=la divina comedia,author='Dante',yearOfPublishing='1950'}, Book{id=3, title=Blancanieves,author='sin autor',yearOfPublishing='1000'}]";
+        assertEquals(expected, result.toString());
 
     }
 
@@ -104,15 +104,16 @@ public class BookServiceTest {
 
     @Test
     public void searchABookByTitleCorrectBehavior() throws SearchABookByEmptyTitle {
-        BookService bookService=BookService.getInstance();
-        List <Book> result=bookService.searchBookByTitle("La");
-        assertEquals("[Book{ title=La biblia,author='sin autor',yearOfPublishing='1000'}, Book{ title=la divina comedia,author='Dante',yearOfPublishing='1950'}]",result.toString());
+        BookService bookService = BookService.getInstance();
+        List<Book> result = bookService.searchBookByTitle("La");
+        String expectedReturn = "[Book{id=0, title=La biblia,author='sin autor',yearOfPublishing='1000'}, Book{id=2, title=la divina comedia,author='Dante',yearOfPublishing='1950'}]";
+        assertEquals(expectedReturn, result.toString());
     }
 
     @Test
     public void searchABookByTitleEmptyTitle() {
-        BookService bookService=BookService.getInstance();
-        assertThrows(SearchABookByEmptyTitle.class,()->{
+        BookService bookService = BookService.getInstance();
+        assertThrows(SearchABookByEmptyTitle.class, () -> {
             bookService.searchBookByTitle("");
         });
     }

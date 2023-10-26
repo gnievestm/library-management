@@ -60,7 +60,7 @@ public class BookService implements IBookPort {
         if(!BookManager.existBook(idBook)){
             throw new NotExistBookException();
         }
-        if(BookManager.getBorrowedBooks().get(idBook) != null){
+        if(BookManager.isBookBorrowed(idBook)){
             throw new BookAlreadyBorrowed();
         }
         BookManager.addBorrowedBook(idBook);
