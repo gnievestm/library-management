@@ -9,8 +9,11 @@ import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookExc
 import java.util.List;
 
 public interface IBookPort {
-    public List<Book> getAllBooks();
-    public void addBook(Book book) throws BookSomeEmptyAttributeException;
-    public void addBorrowedBook(int idBook) throws NotExistBookException, BookAlreadyBorrowed;
-    public List<Book> getBorrowedBooks();
+    List<Book> getAllBooks();
+
+    void addBook(Book book) throws BookSomeEmptyAttributeException;
+
+    void addBorrowedBook(int idBook) throws NotExistBookException, BookAlreadyBorrowed;
+
+    List<Book> getBorrowedBooks();
 }

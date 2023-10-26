@@ -7,11 +7,12 @@ import com.teamcubation.librarymanagement.domain.managers.BookManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class BookService implements IBookPort {
 
     static BookService instance;
-    private BookManager BookManager;
+    private final BookManager BookManager;
 
     public static BookService getInstance() {
         if (instance == null) instance = new BookService();
@@ -57,22 +58,23 @@ public class BookService implements IBookPort {
     }
 
     public void addBorrowedBook(int idBook) throws NotExistBookException, BookAlreadyBorrowed {
-        if(!BookManager.existBook(idBook)){
+        if (!BookManager.existBook(idBook)) {
             throw new NotExistBookException();
         }
-        if(BookManager.isBookBorrowed(idBook)){
+        if (BookManager.isBookBorrowed(idBook)) {
             throw new BookAlreadyBorrowed();
         }
         BookManager.addBorrowedBook(idBook);
     }
 
     public List<Book> searchBookByTitle(String title) throws SearchABookByEmptyTitle {
-        if(title.isEmpty())
+        if (title.isEmpty())
             throw new SearchABookByEmptyTitle();
         return BookManager.searchBookByTitle(title);
     }
+
     public void returnBorrowedBook(Book book) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
-        if(!BookManager.existBook(book.getBookId())){
+        if (!BookManager.existBook(book.getBookId())) {
             throw new NotExistBookException();
         }
         BookManager.returnBorrowedBook(book);

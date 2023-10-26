@@ -1,5 +1,7 @@
 package com.teamcubation.librarymanagement.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 
 public class Computer {
@@ -12,6 +14,7 @@ public class Computer {
         if (brand == null || model == null) {
             throw new ComputerMissingFieldsException();
         }
+
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -39,10 +42,6 @@ public class Computer {
 
     @Override
     public String toString() {
-        return "Computer{" +
-                "id = " + id + '\'' +
-                "brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                '}';
+        return "Computer{" + "id = " + id + '\'' + "brand='" + brand + '\'' + ", model='" + model + '\'' + '}';
     }
 }
