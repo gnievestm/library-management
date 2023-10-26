@@ -1,36 +1,39 @@
 package com.teamcubation.librarymanagement.service;
 
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidIDException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
 import com.teamcubation.librarymanagement.domain.managers.ComputerManager;
 import com.teamcubation.librarymanagement.domain.entities.Computer;
 
+import java.util.List;
+
 public class ComputerService {
 
-    static ComputerService instance;
     private ComputerManager computerManager;
 
-    public static ComputerService getInstance() {
 
-        if (instance == null)
-            instance = new ComputerService();
-        return instance;
-    }
-
-    private ComputerService() {
-
+    public ComputerService() {
         this.computerManager = new ComputerManager();
     }
 
-    public void addComputer(int computerID, String brand, String model) throws ComputerMissingFieldsException, ComputerInvalidIDException {
+    public void addComputer(String brand, String model) throws ComputerMissingFieldsException {
 
-        Computer computer = new Computer(computerID, brand, model);
-        this.computerManager.addComputer((computer));
-
+        this.computerManager.addComputer(brand, model);
     }
 
-    public boolean existComputer(Computer computer) {
-        return computerManager.existComputer(computer);
+    public boolean existComputer(int id) {
+        return computerManager.existComputer(id);
     }
 
+    public void reserveComputer(int computerId) throws ComputerNotAvailableException {
+        computerManager.reserveComputer(computerId);
+    }
+
+    public List<String> getAllComputers() {
+        return computerManager.getComputers();
+    }
+
+    public List<String> getAllAvailableComputers(){
+        return computerManager.getAvailableComputers();
+    }
 }
