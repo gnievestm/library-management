@@ -21,7 +21,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void addBookWithSomeEmptyAttribute() throws BookSomeEmptyAttributeException {
+    public void addBookWithSomeEmptyAttribute(){
         BookService bookService = BookService.getInstance();
         assertThrows(BookSomeEmptyAttributeException.class, () -> {
             bookService.addBook("El hombre en busca de sentido", "", "2000");
@@ -34,9 +34,9 @@ public class BookServiceTest {
         bookService.getAvailableBooks();
 
         List<Book> result = bookService.getAvailableBooks();
-        for (Book book : result) {
-            System.out.println(book.toString());
-        }
+
+        assertEquals("[Book{ title=la divina comedia,author='Dante',yearOfPublishing='1950'}]",result.toString());
+
     }
 
     @Test
