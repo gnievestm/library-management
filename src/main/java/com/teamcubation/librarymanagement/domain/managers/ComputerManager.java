@@ -39,11 +39,9 @@ public class ComputerManager {
 
     public boolean existComputer(int id) {
         for (Computer c : computerList)
-            if (c.getId() == id)
-                return true;
+            if (c.getId() == id) return true;
         for (Computer c : reservedComputers)
-            if (c.getId() == id)
-                return true;
+            if (c.getId() == id) return true;
         return false;
     }
 

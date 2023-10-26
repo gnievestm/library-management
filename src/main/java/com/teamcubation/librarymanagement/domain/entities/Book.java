@@ -18,7 +18,7 @@ public class Book {
         this.yearOfPublishing = Year.parse(yearOfPublishing);
     }
 
-    private int getBookId() {
+    public int getBookId() {
         return bookId;
     }
 
@@ -43,6 +43,10 @@ public class Book {
         if (this == o) return true;
         if (!(o instanceof Book book)) return false;
         return bookId == ((Book) o).bookId;
+    }
+
+    public String toString() {
+        return "Book{" + "id=" + bookId + ", title=" + this.title + ",author='" + this.author + '\'' + ",yearOfPublishing='" + this.yearOfPublishing + '\'' + '}';
     }
 
     @Override

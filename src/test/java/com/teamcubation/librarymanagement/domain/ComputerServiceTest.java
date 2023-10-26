@@ -33,6 +33,7 @@ public class ComputerServiceTest {
 
     @Test
     void viewComputerTest() throws ComputerMissingFieldsException, ComputerInvalidID, ComputerAlreadyExists {
+
         ComputerService cs = new ComputerService();
         List<String> computers = cs.getAllComputers();
         int expectedSizeBeforeAdding = 0;
