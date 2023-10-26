@@ -20,12 +20,10 @@ public class MagazineController {
         this.magazinePort = magazinePort;
     }
 
-
     @GetMapping(path = "/api/magazines")
     public ResponseEntity<List<BorrowMagazine>> getAllMagazineAndStatus() {
         return ResponseEntity.ok(magazinePort.getAllMagazine());
     }
-
 
     @GetMapping(path = "/api/magazines/?search={name}")
     public ResponseEntity<Magazine> searchMagazine(@PathVariable("name") String magazineName) throws MagazineNotExistException {
@@ -60,6 +58,5 @@ public class MagazineController {
     public ResponseEntity<String> handleExceptionMagazineNotAvailableException() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your magazine is not available");
     }
-
 }
 
