@@ -54,7 +54,6 @@ public class NewspaperServicesTest {
         manageEntry.viewNewspaper();
         assertTrue(manageEntry.viewNewspaper(), "Showing available newspapers");
     }
-
     @Test
     void viewNewspaperExist() throws MissingDateOrHeadline, NewspaperDuplicated {
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
