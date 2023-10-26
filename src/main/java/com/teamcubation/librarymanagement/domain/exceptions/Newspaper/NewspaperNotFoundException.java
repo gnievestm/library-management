@@ -1,8 +1,8 @@
 package com.teamcubation.librarymanagement.domain.exceptions.Newspaper;
 
-public class NewspaperNotFound extends Exception {
+public class NewspaperNotFoundException extends Exception {
 
-    public NewspaperNotFound() {
+    public NewspaperNotFoundException() {
         super("There is not a newspaper with this data");
     }
 }
