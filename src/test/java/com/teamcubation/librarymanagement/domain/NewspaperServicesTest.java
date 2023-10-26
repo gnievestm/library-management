@@ -8,6 +8,8 @@ import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperN
 import com.teamcubation.librarymanagement.domain.exceptions.Newspaper.NewspaperDuplicated;
 import com.teamcubation.librarymanagement.domain.managers.NewspaperManager;
 import org.junit.jupiter.api.Assertions;
+
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -26,7 +28,6 @@ public class NewspaperServicesTest {
     }
     @Test
     void addNewEntryWithOutHeadlineOrDate() throws MissingDateOrHeadline {
-
         Newspaper entry = new Newspaper(1, "", "");
         NewspaperManager manageEntry = new NewspaperManager();
         Exception thrown = Assertions.assertThrows(MissingDateOrHeadline.class, () -> {
