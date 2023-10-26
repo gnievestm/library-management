@@ -9,10 +9,9 @@ import java.util.List;
 
 public class BookManager {
 
-    private List<Book> books;
-
-    private List<Book> borrowedBooks;
-    private List<Book> availableBooks;
+    private final List<Book> books;
+    private final List<Book> borrowedBooks;
+    private final List<Book> availableBooks;
 
     public BookManager() {
         books = new ArrayList<>();
@@ -27,11 +26,10 @@ public class BookManager {
         return true;
     }
 
-    public List<Book> searchBookByTitle(String title){
-        List<Book> foundedBooks=new ArrayList<>();
-        for(Book book:books)
-            if(book.getTitle().toLowerCase().contains(title.toLowerCase()))
-                foundedBooks.add(book);
+    public List<Book> searchBookByTitle(String title) {
+        List<Book> foundedBooks = new ArrayList<>();
+        for (Book book : books)
+            if (book.getTitle().toLowerCase().contains(title.toLowerCase())) foundedBooks.add(book);
         return foundedBooks;
     }
 
@@ -43,24 +41,40 @@ public class BookManager {
         return this.borrowedBooks;
     }
 
-    public boolean existBook(Book book) {
-        return books.contains(book);
+    public List<Book> getAllBooks() {
+        return this.books;
+    }
+
+    public boolean existBook(int idBook) {
+        for (Book book : books)
+            if (book.getBookId() == idBook) return true;
+        return false;
+    }
+
+    public boolean isBookBorrowed(int id) {
+        for (Book book : borrowedBooks) {
+            if (book.getBookId() == id) return true;
+        }
+        return false;
     }
 
     public int countBook() {
         return books.size();
     }
 
-    public boolean addBorrowedBook(Book book) {
-        if (borrowedBooks.contains(book)) {
-            return false;
+    public boolean addBorrowedBook(int idBook) {
+        for (Book book : books) {
+            if (book.getBookId() == idBook) {
+                availableBooks.remove(book);
+                borrowedBooks.add(book);
+                return true;
+            }
         }
-        availableBooks.remove(book);
-        borrowedBooks.add(book);
-        return true;
+        return false;
     }
+
     public boolean returnBorrowedBook(Book book) throws ReturnABookthatIsNotBorrowed {
-        if(!borrowedBooks.contains(book)){
+        if (!borrowedBooks.contains(book)) {
             throw new ReturnABookthatIsNotBorrowed();
         }
         borrowedBooks.remove(book);

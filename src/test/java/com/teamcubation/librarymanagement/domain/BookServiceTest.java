@@ -2,7 +2,7 @@ package com.teamcubation.librarymanagement.domain;
 
 import com.teamcubation.librarymanagement.domain.entities.Book;
 import com.teamcubation.librarymanagement.domain.exceptions.book.*;
-import com.teamcubation.librarymanagement.service.BookService;
+import com.teamcubation.librarymanagement.application.service.BookService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void addBookWithSomeEmptyAttribute(){
+    public void addBookWithSomeEmptyAttribute() {
         BookService bookService = BookService.getInstance();
         assertThrows(BookSomeEmptyAttributeException.class, () -> {
             bookService.addBook("El hombre en busca de sentido", "", "2000");
@@ -34,8 +34,8 @@ public class BookServiceTest {
         bookService.getAvailableBooks();
 
         List<Book> result = bookService.getAvailableBooks();
-
-        assertEquals("[Book{ title=la divina comedia,author='Dante',yearOfPublishing='1950'}]",result.toString());
+        String expected = "[Book{id=0, title=La biblia,author='sin autor',yearOfPublishing='1000'}, Book{id=2, title=la divina comedia,author='Dante',yearOfPublishing='1950'}, Book{id=3, title=Blancanieves,author='sin autor',yearOfPublishing='1000'}]";
+        assertEquals(expected, result.toString());
 
     }
 
@@ -44,7 +44,7 @@ public class BookServiceTest {
         Book bookToBorrow = new Book("Capelucita roja", "no sé", "1944");
         BookService bookService = BookService.getInstance();
         bookService.addBook(bookToBorrow);
-        bookService.addBorrowedBook(bookToBorrow);
+        bookService.addBorrowedBook(bookToBorrow.getBookId());
         List<Book> result = bookService.getBorrowedBooks();
 
         assertEquals(1, result.size());
@@ -56,9 +56,9 @@ public class BookServiceTest {
         Book bookToBorrow2 = new Book("Hamlet", "authorcito", "2010");
         BookService bookService = BookService.getInstance();
         bookService.addBook(bookToBorrow2);
-        bookService.addBorrowedBook(bookToBorrow2);
+        bookService.addBorrowedBook(bookToBorrow2.getBookId());
         assertThrows(BookAlreadyBorrowed.class, () -> {
-            bookService.addBorrowedBook(bookToBorrow2);
+            bookService.addBorrowedBook(bookToBorrow2.getBookId());
         });
     }
 
@@ -68,7 +68,7 @@ public class BookServiceTest {
         BookService bookService = BookService.getInstance();
 
         assertThrows(NotExistBookException.class, () -> {
-            bookService.addBorrowedBook(bookExample4);
+            bookService.addBorrowedBook(bookExample4.getBookId());
         });
     }
 
@@ -77,7 +77,7 @@ public class BookServiceTest {
         Book bookToBorrow3 = new Book("La biblia", "sin autor", "1000");
         BookService bookService = BookService.getInstance();
         bookService.addBook(bookToBorrow3);
-        bookService.addBorrowedBook(bookToBorrow3);
+        bookService.addBorrowedBook(bookToBorrow3.getBookId());
         bookService.returnBorrowedBook(bookToBorrow3);
         List<Book> result = bookService.getBorrowedBooks();
         assertEquals(0, result.size());
@@ -104,15 +104,16 @@ public class BookServiceTest {
 
     @Test
     public void searchABookByTitleCorrectBehavior() throws SearchABookByEmptyTitle {
-        BookService bookService=BookService.getInstance();
-        List <Book> result=bookService.searchBookByTitle("La");
-        assertEquals("[Book{ title=La biblia,author='sin autor',yearOfPublishing='1000'}, Book{ title=la divina comedia,author='Dante',yearOfPublishing='1950'}]",result.toString());
+        BookService bookService = BookService.getInstance();
+        List<Book> result = bookService.searchBookByTitle("La");
+        String expectedReturn = "[Book{id=0, title=La biblia,author='sin autor',yearOfPublishing='1000'}, Book{id=2, title=la divina comedia,author='Dante',yearOfPublishing='1950'}]";
+        assertEquals(expectedReturn, result.toString());
     }
 
     @Test
     public void searchABookByTitleEmptyTitle() {
-        BookService bookService=BookService.getInstance();
-        assertThrows(SearchABookByEmptyTitle.class,()->{
+        BookService bookService = BookService.getInstance();
+        assertThrows(SearchABookByEmptyTitle.class, () -> {
             bookService.searchBookByTitle("");
         });
     }
