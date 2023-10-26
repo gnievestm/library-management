@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 public class MagazineController {
@@ -35,29 +34,32 @@ public class MagazineController {
 
     @PostMapping(path = "/api/magazines")
     public ResponseEntity<Magazine> createUser(@RequestBody Magazine magazine) throws MagazineAttributeMissingException {
-        if (magazine.getName() == null || magazine.getDate() == null || Objects.equals(magazine.getName(), "")) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         magazinePort.addMagazine(magazine);
         return ResponseEntity.ok(magazine);
+
     }
 
     @PostMapping(path = "/api/magazines")
     public ResponseEntity<Magazine> borrowMagazine(@RequestBody Magazine magazine) throws MagazineNotAvailableException {
-        if (magazine.getName() == null || magazine.getDate() == null || Objects.equals(magazine.getName(), "")) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+
         magazinePort.borrowMagazine(magazine);
         return ResponseEntity.ok(magazine);
     }
 
     @PostMapping(path = "/api/magazines")
     public ResponseEntity<Magazine> returnMagazine(@RequestBody Magazine magazine) {
-        if (magazine.getName() == null || magazine.getDate() == null || Objects.equals(magazine.getName(), "")){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         magazinePort.returnMagazine(magazine);
         return ResponseEntity.ok(magazine);
     }
 
+    @ExceptionHandler({MagazineAttributeMissingException.class})
+    public ResponseEntity<String> handleExceptionMagazineAttributeMissingException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your magazine attributes are void");
+    }
+    @ExceptionHandler({MagazineNotAvailableException.class})
+    public ResponseEntity<String> handleExceptionMagazineNotAvailableException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your magazine is not available");
+    }
+
 }
+
