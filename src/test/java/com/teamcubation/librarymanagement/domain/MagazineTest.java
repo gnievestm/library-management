@@ -2,12 +2,12 @@ package com.teamcubation.librarymanagement.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.teamcubation.librarymanagement.application.service.MagazineService;
 import com.teamcubation.librarymanagement.domain.entities.BorrowMagazine;
 import com.teamcubation.librarymanagement.domain.entities.Magazine;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineAttributeMissingException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotAvailableException;
 import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNotExistException;
-import com.teamcubation.librarymanagement.service.MagazineService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +41,7 @@ public class MagazineTest {
         magazineService.addMagazine(magazine);
         int availableBeforeBorrow = magazineService.getAvailableMagazinesCount();
         int borrowedBeforeBorrow = magazineService.getBorrowedMagazinesCount();
-        magazineService.borrowMagazine(magazine);
+        magazineService.borrowMagazine(magazine.getId());
         int availableAfterBorrow = magazineService.getAvailableMagazinesCount();
         int borrowedAfterBorrow = magazineService.getBorrowedMagazinesCount();
         assertEquals(availableBeforeBorrow - 1, availableAfterBorrow);
@@ -82,7 +82,7 @@ public class MagazineTest {
         MagazineService magazineService = new MagazineService();
         Magazine magazine = new Magazine("leo", new Date());
         magazineService.addMagazine(magazine);
-        magazineService.borrowMagazine(magazine);
-        assertTrue(magazineService.returnMagazine(magazine));
+        magazineService.borrowMagazine(magazine.getId());
+        assertTrue(magazineService.returnMagazine(magazine.getId()));
     }
 }
