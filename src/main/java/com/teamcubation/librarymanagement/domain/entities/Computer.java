@@ -11,8 +11,7 @@ public class Computer {
     private String brand;
     private String model;
 
-    @JsonCreator
-    public Computer(@JsonProperty("id") int id, @JsonProperty("brand") String brand, @JsonProperty("model") String model) throws ComputerMissingFieldsException {
+    public Computer(int id, String brand, String model) throws ComputerMissingFieldsException {
         if (brand == null || model == null) {
             throw new ComputerMissingFieldsException();
         }
