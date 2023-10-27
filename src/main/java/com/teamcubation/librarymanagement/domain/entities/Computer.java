@@ -2,7 +2,6 @@ package com.teamcubation.librarymanagement.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerInvalidID;
 
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 
@@ -13,13 +12,9 @@ public class Computer {
     private String model;
 
     @JsonCreator
-    public Computer(@JsonProperty("id") int id, @JsonProperty("brand") String brand, @JsonProperty("model") String model) throws ComputerMissingFieldsException, ComputerInvalidID {
+    public Computer(@JsonProperty("id") int id, @JsonProperty("brand") String brand, @JsonProperty("model") String model) throws ComputerMissingFieldsException {
         if (brand == null || model == null) {
             throw new ComputerMissingFieldsException();
-        }
-
-        if (id<=0){
-            throw new ComputerInvalidID();
         }
 
         this.id = id;
