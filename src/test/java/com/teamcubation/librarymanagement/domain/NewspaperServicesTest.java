@@ -46,17 +46,16 @@ public class NewspaperServicesTest {
         Exception thrown = Assertions.assertThrows(NewspaperDuplicatedException.class, () -> {
             manageEntry.addNewspaper(entry);
         });
-
     }
 
     @Test
     void viewNewspaper() throws MissingDateOrHeadlineException, NewspaperDuplicatedException {
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
-        manageEntry.addNewspaper(entry);
         List<Newspaper> testContent = new ArrayList<>();
+        manageEntry.addNewspaper(entry);
         testContent.add(entry);
-
+        assertArrayEquals(testContent.toArray(), manageEntry.viewNewspaper().toArray());
     }
 
     @Test
