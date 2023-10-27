@@ -49,14 +49,5 @@ public class MagazineController {
         return ResponseEntity.ok(true);
     }
 
-    @ExceptionHandler({MagazineAttributeMissingException.class})
-    public ResponseEntity<String> handleExceptionMagazineAttributeMissingException() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your magazine attributes are void");
-    }
-
-    @ExceptionHandler({MagazineNotAvailableException.class})
-    public ResponseEntity<String> handleExceptionMagazineNotAvailableException() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your magazine is not available");
-    }
 }
 
