@@ -27,26 +27,26 @@ public class BookController {
         return ResponseEntity.ok(book);
     }
 
-    @PostMapping(path = "/api/books/borrowedBooks")
-    public ResponseEntity<Integer> addBorrowedBook(@RequestBody int idBook) throws BookAlreadyBorrowed, NotExistBookException {
+    @PostMapping(path = "api/books/{id}/borrow")
+    public ResponseEntity<Integer> addBorrowedBook(@PathVariable("id") int idBook) throws BookAlreadyBorrowed, NotExistBookException {
         bookPort.addBorrowedBook(idBook);
         return ResponseEntity.ok(idBook);
     }
 
-    @GetMapping(path = "/api/books/borrowedBooks")
-    public ResponseEntity<List<Book>> getBorrowedBooks() {
+    @GetMapping(path = "/api/books?borrowed={borrow}")
+    public ResponseEntity<List<Book>> getBorrowedBooks(@PathVariable("borrow") boolean borrow) {
         return ResponseEntity.ok(bookPort.getBorrowedBooks());
     }
 
-    @GetMapping(path = "/api/books/availableBooks")
-    public ResponseEntity<List<Book>> getAvailableBooks() {
+    @GetMapping(path = "/api/books?available={available}")
+    public ResponseEntity<List<Book>> getAvailableBooks(@PathVariable("available") boolean available) {
         return ResponseEntity.ok(bookPort.getAvailableBooks());
     }
 
-    @PostMapping(path = "/api/books/returnBorrowedBooks")
-    public ResponseEntity<Integer> returnBorrowedBook(@RequestBody int idBook) throws ReturnABookthatIsNotBorrowed, NotExistBookException {
-        bookPort.returnBorrowedBook(idBook);
-        return ResponseEntity.ok(idBook);
+    @PostMapping(path = "/api/books/{id}/return")
+    public ResponseEntity<Integer> returnBorrowedBook(@PathVariable("id") int id) throws ReturnABookthatIsNotBorrowed, NotExistBookException {
+        bookPort.returnBorrowedBook(id);
+        return ResponseEntity.ok(id);
     }
 
     @PostMapping(path = "/api/searchBooks")
