@@ -7,19 +7,13 @@ import com.teamcubation.librarymanagement.domain.managers.BookManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public class BookService implements IBookPort {
 
-    static BookService instance;
+
     private final BookManager BookManager;
 
-    public static BookService getInstance() {
-        if (instance == null) instance = new BookService();
-        return instance;
-    }
-
-    private BookService() {
+    public BookService() {
         this.BookManager = new BookManager();
     }
 

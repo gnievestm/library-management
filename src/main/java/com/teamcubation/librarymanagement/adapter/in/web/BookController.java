@@ -2,9 +2,7 @@ package com.teamcubation.librarymanagement.adapter.in.web;
 
 import com.teamcubation.librarymanagement.application.port.in.IBookPort;
 import com.teamcubation.librarymanagement.domain.entities.Book;
-import com.teamcubation.librarymanagement.domain.exceptions.book.BookAlreadyBorrowed;
-import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
-import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookException;
+import com.teamcubation.librarymanagement.domain.exceptions.book.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,15 +27,30 @@ public class BookController {
         return ResponseEntity.ok(book);
     }
 
-    @PostMapping(path = "/api/books/{id}/borrowBook")
-    public ResponseEntity<Integer> addBorrowedBook(@PathVariable("id") int id) throws BookAlreadyBorrowed, NotExistBookException {
-        bookPort.addBorrowedBook(id);
+    @PostMapping(path = "api/books/{id}/borrow")
+    public ResponseEntity<Integer> addBorrowedBook(@PathVariable("id") int idBook) throws BookAlreadyBorrowed, NotExistBookException {
+        bookPort.addBorrowedBook(idBook);
+        return ResponseEntity.ok(idBook);
+    }
+
+    @GetMapping(path = "/api/books?borrowed={borrow}")
+    public ResponseEntity<List<Book>> getBorrowedBooks(@PathVariable("borrow") boolean borrow) {
+        return ResponseEntity.ok(bookPort.getBorrowedBooks());
+    }
+
+    @GetMapping(path = "/api/books?available={available}")
+    public ResponseEntity<List<Book>> getAvailableBooks(@PathVariable("available") boolean available) {
+        return ResponseEntity.ok(bookPort.getAvailableBooks());
+    }
+
+    @PostMapping(path = "/api/books/{id}/return")
+    public ResponseEntity<Integer> returnBorrowedBook(@PathVariable("id") int id) throws ReturnABookthatIsNotBorrowed, NotExistBookException {
+        bookPort.returnBorrowedBook(id);
         return ResponseEntity.ok(id);
     }
 
-    @GetMapping(path = "/api/books?borrowedBooks={borrowedValue}")
-    public ResponseEntity<List<Book>> getBorrowedBooks(@PathVariable("borrowedValue") String borrowedValue) {
-        if (borrowedValue.equals("true")) return ResponseEntity.ok(bookPort.getBorrowedBooks());
-        return null;
+    @PostMapping(path = "/api/searchBooks")
+    public ResponseEntity<List<Book>> searchBookByTitle(@RequestParam String search) throws ReturnABookthatIsNotBorrowed, NotExistBookException, SearchABookByEmptyTitle {
+        return ResponseEntity.ok(bookPort.searchBookByTitle(search));
     }
 }
