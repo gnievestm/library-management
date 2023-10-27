@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 
 public class UserServiceTest {
 
-  @Test
-  void adduser() {
-    UserService userService = new UserService();
-    userService.addUser("name", "userName", "email", "phone", 21);
-    User user = new User("name", "userName", "email", "phone", 21);
-    boolean found = userService.existUser(user);
+    @Test
+    void adduser() {
+        UserService userService = new UserService();
+        userService.addUser("name", "userName", "email", "phone", 21);
+        User user = new User("name", "userName", "email", "phone", 21);
+        boolean found = userService.existUser(user);
 
-    assertTrue(found);
-  }
+        assertTrue(found);
+    }
 }

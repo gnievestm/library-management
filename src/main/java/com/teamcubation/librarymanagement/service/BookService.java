@@ -1,19 +1,22 @@
-package com.teamcubation.librarymanagement.application.service;
+package com.teamcubation.librarymanagement.service;
 
-import com.teamcubation.librarymanagement.application.port.in.IBookPort;
 import com.teamcubation.librarymanagement.domain.entities.Book;
 import com.teamcubation.librarymanagement.domain.exceptions.book.*;
 import com.teamcubation.librarymanagement.domain.managers.BookManager;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
-public class BookService implements IBookPort {
 
+public class BookService {
 
-    private final BookManager BookManager;
+    static BookService instance;
+    private BookManager BookManager;
 
-    public BookService() {
+    public static BookService getInstance() {
+        if (instance == null) instance = new BookService();
+        return instance;
+    }
+
+    private BookService() {
         this.BookManager = new BookManager();
     }
 
@@ -21,12 +24,6 @@ public class BookService implements IBookPort {
         if (title.isEmpty() || author.isEmpty() || publishYear.isEmpty()) throw new BookSomeEmptyAttributeException();
         Book book = new Book(title, author, publishYear);
         this.BookManager.addBook(book);
-    }
-
-
-    @Override
-    public List<Book> getAllBooks() {
-        return BookManager.getAllBooks();
     }
 
     public void addBook(Book book) throws BookSomeEmptyAttributeException {
@@ -47,28 +44,27 @@ public class BookService implements IBookPort {
         return BookManager.countBook();
     }
 
-    public boolean existBook(Book book) {
-        return BookManager.existBook(book.getBookId());
+    public boolean existBook(int id) {
+        return BookManager.existBook(id);
     }
 
-    public void addBorrowedBook(int idBook) throws NotExistBookException, BookAlreadyBorrowed {
-        if (!BookManager.existBook(idBook)) {
+    public void addBorrowedBook(int id) throws NotExistBookException, BookAlreadyBorrowed {
+        if(!BookManager.existBook(id)){
             throw new NotExistBookException();
         }
-        if (BookManager.isBookBorrowed(idBook)) {
+        if(BookManager.getBorrowedBooks().contains(id)){
             throw new BookAlreadyBorrowed();
         }
-        BookManager.addBorrowedBook(idBook);
+        BookManager.addBorrowedBook(id);
     }
 
     public List<Book> searchBookByTitle(String title) throws SearchABookByEmptyTitle {
-        if (title.isEmpty())
+        if(title.isEmpty())
             throw new SearchABookByEmptyTitle();
         return BookManager.searchBookByTitle(title);
     }
-
     public void returnBorrowedBook(int id) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
-        if (!BookManager.existBook(id)) {
+        if(!BookManager.existBook(id)){
             throw new NotExistBookException();
         }
         BookManager.returnBorrowedBook(id);
