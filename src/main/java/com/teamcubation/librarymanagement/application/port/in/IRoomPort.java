@@ -11,5 +11,5 @@ public interface IRoomPort {
     public List<Room> getAllRooms();
     public void createRoom(Room room) throws RoomAlreadyExistsException;
     public void reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException;
-
+    public void cancelBookRoom(Room room) throws RoomNotFoundException;
 }

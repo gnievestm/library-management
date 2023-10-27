@@ -34,6 +34,13 @@ public class RoomController {
         return ResponseEntity.ok(room);
     }
 
+    @PostMapping(path = "/api/rooms/reserve/cancel")
+    public ResponseEntity<Room> cancelBookRoom(@RequestParam String address, @RequestParam String name) throws RoomNotFoundException, RoomIncompleteFieldsException {
+        Room room = new Room(name, address);
+        roomPort.cancelBookRoom(room);
+        return ResponseEntity.ok(room);
+    }
+
     @GetMapping(path = "/api/rooms")
     public ResponseEntity<List<Room>> getAllRooms() {
         return ResponseEntity.ok(roomPort.getAllRooms());
