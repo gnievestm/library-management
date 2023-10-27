@@ -2,8 +2,7 @@ package com.teamcubation.librarymanagement.adapter.in.web;
 
 import com.teamcubation.librarymanagement.application.port.in.IComputerPort;
 import com.teamcubation.librarymanagement.domain.entities.Computer;
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExists;
-
+import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExistsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class ComputerController {
     }
 
     @PostMapping(path = "/api/computers")
-    public ResponseEntity<Computer> addComputer(@RequestBody Computer computer) throws ComputerMissingFieldsException, ComputerAlreadyExists {
+    public ResponseEntity<Computer> addComputer(@RequestBody Computer computer) throws ComputerMissingFieldsException, ComputerAlreadyExistsException {
         computerPort.addComputer(computer);
         return ResponseEntity.ok(computer);
     }
@@ -31,18 +30,18 @@ public class ComputerController {
         return ResponseEntity.ok(computerPort.getAllComputers());
     }
 
-    @GetMapping(path = "/api/computersAvailable")
+    @GetMapping(path = "/api/computers?available={available}")
     public ResponseEntity<List<String>> getAllAvailableComputers() {
         return ResponseEntity.ok(computerPort.getAllAvailableComputers());
     }
 
-    @PostMapping(path = "/api/computersReserve/{id}")
+    @PostMapping(path = "/api/{id}/reserve")
     public ResponseEntity<Computer> reserveComputer(@PathVariable("id") int computerId) throws ComputerNotAvailableException {
         Computer reservedComputer = computerPort.reserveComputer(computerId);
         return ResponseEntity.ok(reservedComputer);
     }
 
-    @PostMapping(path = "/api/computer/Cancel/Reserve/{id}")
+    @PatchMapping(path = "/api/computer/{id}/reserve")
     public ResponseEntity<Computer> cancelReservation(@PathVariable("id") int computerId) {
         Computer cancelledReservation = computerPort.cancelReservation(computerId);
         return ResponseEntity.ok(cancelledReservation);
