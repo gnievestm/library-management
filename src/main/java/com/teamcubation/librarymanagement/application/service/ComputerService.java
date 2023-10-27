@@ -1,6 +1,7 @@
 package com.teamcubation.librarymanagement.application.service;
 
 import com.teamcubation.librarymanagement.application.port.in.IComputerPort;
+
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExistsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
@@ -19,7 +20,6 @@ public class ComputerService implements IComputerPort {
     }
 
     public void addComputer(String brand, String model) throws ComputerMissingFieldsException, ComputerAlreadyExistsException {
-
         this.computerManager.addComputer(brand, model);
     }
 
@@ -27,8 +27,15 @@ public class ComputerService implements IComputerPort {
         return computerManager.existComputer(id);
     }
 
-    public void reserveComputer(int computerId) throws ComputerNotAvailableException {
+    public Computer reserveComputer(int computerId) throws ComputerNotAvailableException {
         computerManager.reserveComputer(computerId);
+        return null;
+    }
+
+    @Override
+    public Computer cancelReservation(int computerID) {
+        computerManager.cancelReservation(computerID);
+        return null;
     }
 
     @Override

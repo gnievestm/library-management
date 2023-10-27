@@ -1,5 +1,4 @@
 package com.teamcubation.librarymanagement.domain;
-
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExistsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
@@ -32,6 +31,7 @@ public class ComputerServiceTest {
 
     @Test
     void viewComputerTest() throws ComputerMissingFieldsException, ComputerAlreadyExistsException {
+
         ComputerService cs = new ComputerService();
         List<String> computers = cs.getAllComputers();
         int expectedSizeBeforeAdding = 0;
@@ -43,7 +43,7 @@ public class ComputerServiceTest {
     }
 
     @Test
-    void reserveComputer() throws ComputerMissingFieldsException, ComputerNotAvailableException, ComputerAlreadyExistsException {
+    void reserveComputer() throws ComputerMissingFieldsException, ComputerNotAvailableException, ComputerAlreadyExistsException{
         ComputerService cs = new ComputerService();
         cs.addComputer("brand", "model");
         cs.reserveComputer(1);
