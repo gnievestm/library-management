@@ -44,4 +44,9 @@ public class RoomService implements IRoomPort {
     public void reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException {
         this.roomManager.reserveRoom(room);
     }
+
+    @Override
+    public void cancelBookRoom(Room room) throws RoomNotFoundException {
+        this.roomManager.cancelBookRoom(room.getName(), room.getAddress());
+    }
 }

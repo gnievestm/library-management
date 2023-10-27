@@ -26,14 +26,13 @@ public class RoomManager {
         return availableRooms.contains(room) || reservedRooms.contains(room);
     }
 
-    public boolean addRoom(Room room) throws RoomAlreadyExistsException {
+    public void addRoom(Room room) throws RoomAlreadyExistsException {
 
         if (existRoom(room)) {
             throw new RoomAlreadyExistsException();
         }
 
         availableRooms.add(room);
-        return true;
     }
 
     public List<Room> getAvailableRooms() {
@@ -54,7 +53,7 @@ public class RoomManager {
         return List.copyOf(this.reservedRooms);
     }
 
-    public boolean reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException {
+    public void reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException {
 
         if (reservedRooms.contains(room)) {
             throw new RoomAlreadyReservedException();
@@ -65,11 +64,23 @@ public class RoomManager {
             reservedRooms.add(room);
             availableRooms.remove(room);
 
-            return true;
-
         } else {
             throw new RoomNotFoundException();
         }
 
+    }
+
+    public void cancelBookRoom(String name, String roomAddress) throws RoomNotFoundException {
+        Room toCancel = null;
+
+        for (Room room : reservedRooms) {
+            if (room.getName().equals(name) && room.getAddress().equals(roomAddress))
+                toCancel = room;
+        }
+        if (toCancel == null)
+            throw new RoomNotFoundException();
+
+        reservedRooms.remove(toCancel);
+        availableRooms.add(toCancel);
     }
 }

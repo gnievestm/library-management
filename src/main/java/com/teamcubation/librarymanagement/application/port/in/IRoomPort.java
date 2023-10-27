@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface IRoomPort {
     List<Room> getAllRooms();
-
     void createRoom(Room room) throws RoomAlreadyExistsException;
-
     void reserveRoom(Room room) throws RoomNotFoundException, RoomAlreadyReservedException;
-
+    void cancelBookRoom(Room room) throws RoomNotFoundException;
 }
