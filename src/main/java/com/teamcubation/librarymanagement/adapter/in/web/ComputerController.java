@@ -35,13 +35,13 @@ public class ComputerController {
         return ResponseEntity.ok(computerPort.getAllAvailableComputers());
     }
 
-    @PostMapping(path = "/api/{id}/reserve")
+    @PostMapping(path = "/api/computers/{id}/reserve")
     public ResponseEntity<Computer> reserveComputer(@PathVariable("id") int computerId) throws ComputerNotAvailableException {
         Computer reservedComputer = computerPort.reserveComputer(computerId);
         return ResponseEntity.ok(reservedComputer);
     }
 
-    @PatchMapping(path = "/api/computer/{id}/reserve")
+    @PatchMapping(path = "/api/computers/{id}/reserve")
     public ResponseEntity<Computer> cancelReservation(@PathVariable("id") int computerId) {
         Computer cancelledReservation = computerPort.cancelReservation(computerId);
         return ResponseEntity.ok(cancelledReservation);

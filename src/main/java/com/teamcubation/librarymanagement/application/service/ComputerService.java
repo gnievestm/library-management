@@ -2,7 +2,6 @@ package com.teamcubation.librarymanagement.application.service;
 
 import com.teamcubation.librarymanagement.application.port.in.IComputerPort;
 
-import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExists;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerAlreadyExistsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerMissingFieldsException;
 import com.teamcubation.librarymanagement.domain.exceptions.computer.ComputerNotAvailableException;
