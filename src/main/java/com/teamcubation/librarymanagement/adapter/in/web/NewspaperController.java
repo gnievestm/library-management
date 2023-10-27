@@ -21,12 +21,12 @@ public class NewspaperController {
         this.newspaperPort = newspaperPort;
     }
 
-    @PostMapping(path = "/api/AddNewspapers")
+    @PostMapping(path = "/api/newspapers")
     public ResponseEntity<Boolean> addNewspaper(@RequestBody Newspaper newspaper) throws MissingDateOrHeadlineException, NewspaperDuplicatedException {
         return ResponseEntity.ok(newspaperPort.addNewspaper(newspaper));
     }
 
-    @GetMapping(path = "/api/Newspapers")
+    @GetMapping(path = "/api/newspapers")
     public ResponseEntity<List<Newspaper>> viewNewspaper() {
         return ResponseEntity.ok(newspaperPort.viewNewspaper());
     }
