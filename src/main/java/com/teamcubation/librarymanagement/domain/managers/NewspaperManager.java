@@ -27,8 +27,8 @@ public class NewspaperManager {
         return true;
     }
 
-    public boolean viewNewspaper() {
-        return !catalogue.isEmpty();
+    public List<Newspaper> viewNewspaper() {
+        return catalogue;
     }
 
     public boolean viewNewspaperExist(Newspaper entry) {

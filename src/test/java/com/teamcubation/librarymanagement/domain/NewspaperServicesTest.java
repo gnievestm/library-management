@@ -12,6 +12,10 @@ import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class NewspaperServicesTest {
@@ -42,16 +46,16 @@ public class NewspaperServicesTest {
         Exception thrown = Assertions.assertThrows(NewspaperDuplicatedException.class, () -> {
             manageEntry.addNewspaper(entry);
         });
-
     }
 
     @Test
     void viewNewspaper() throws MissingDateOrHeadlineException, NewspaperDuplicatedException {
         Newspaper entry = new Newspaper(1, "He´s Back!", "2000-07-23");
         NewspaperManager manageEntry = new NewspaperManager();
+        List<Newspaper> testContent = new ArrayList<>();
         manageEntry.addNewspaper(entry);
-        manageEntry.viewNewspaper();
-        assertTrue(manageEntry.viewNewspaper(), "Showing available newspapers");
+        testContent.add(entry);
+        assertArrayEquals(testContent.toArray(), manageEntry.viewNewspaper().toArray());
     }
 
     @Test
