@@ -20,25 +20,31 @@ public class ComputerController {
         this.computerPort = computerPort;
     }
 
-   @PostMapping(path = "/api/computers")
-    public ResponseEntity<Computer> addComputer (@RequestBody Computer computer) throws ComputerMissingFieldsException,ComputerAlreadyExists {
+    @PostMapping(path = "/api/computers")
+    public ResponseEntity<Computer> addComputer(@RequestBody Computer computer) throws ComputerMissingFieldsException, ComputerAlreadyExists {
         computerPort.addComputer(computer);
         return ResponseEntity.ok(computer);
-   }
+    }
 
-   @GetMapping(path = "/api/computers")
+    @GetMapping(path = "/api/computers")
     public ResponseEntity<List<String>> getAllComputers() {
         return ResponseEntity.ok(computerPort.getAllComputers());
-   }
+    }
 
-   @GetMapping(path = "/api/computersAvailable")
-    public ResponseEntity<List<String>> getAllAvailableComputers(){
+    @GetMapping(path = "/api/computersAvailable")
+    public ResponseEntity<List<String>> getAllAvailableComputers() {
         return ResponseEntity.ok(computerPort.getAllAvailableComputers());
-   }
+    }
 
-   @PostMapping(path = "/api/computersReserve/{id}")
-   public ResponseEntity<Computer> reserveComputer(@PathVariable("id") int computerId) throws ComputerNotAvailableException {
-       Computer reservedComputer = computerPort.reserveComputer(computerId);
-       return ResponseEntity.ok(reservedComputer);
-   }
+    @PostMapping(path = "/api/computersReserve/{id}")
+    public ResponseEntity<Computer> reserveComputer(@PathVariable("id") int computerId) throws ComputerNotAvailableException {
+        Computer reservedComputer = computerPort.reserveComputer(computerId);
+        return ResponseEntity.ok(reservedComputer);
+    }
+
+    @PostMapping(path = "/api/computer/Cancel/Reserve/{id}")
+    public ResponseEntity<Computer> cancelReservation(@PathVariable("id") int computerId) {
+        Computer cancelledReservation = computerPort.cancelReservation(computerId);
+        return ResponseEntity.ok(cancelledReservation);
+    }
 }

@@ -33,6 +33,12 @@ public class ComputerService implements IComputerPort {
     }
 
     @Override
+    public Computer cancelReservation(int computerID) {
+        computerManager.cancelReservation(computerID);
+        return null;
+    }
+
+    @Override
     public List<String> getAllComputers() {
         return computerManager.getComputers();
     }
@@ -43,7 +49,6 @@ public class ComputerService implements IComputerPort {
     }
 
     @Override
-
     public void addComputer(Computer computer) throws ComputerAlreadyExists, ComputerMissingFieldsException {
         this.computerManager.addComputer(computer.getBrand(), computer.getModel());
     }

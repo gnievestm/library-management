@@ -16,6 +16,8 @@ public interface IComputerPort {
 
     void addComputer(Computer computer) throws ComputerMissingFieldsException, ComputerAlreadyExists;
 
-    Computer reserveComputer(int computerId)  throws ComputerNotAvailableException;
+    Computer reserveComputer(int computerId) throws ComputerNotAvailableException;
+
+    Computer cancelReservation(int computerID);
 
 }
