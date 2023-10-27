@@ -25,7 +25,7 @@ public class MagazineController {
         return ResponseEntity.ok(magazinePort.getAllMagazine());
     }
 
-    @GetMapping(path = "/api/magazines/?search={name}")
+    @GetMapping(path = "/api/magazines?search={name}")
     public ResponseEntity<Magazine> searchMagazine(@PathVariable("name") String magazineName) throws MagazineNotExistException {
         return ResponseEntity.ok(magazinePort.searchMagazine(magazineName));
     }

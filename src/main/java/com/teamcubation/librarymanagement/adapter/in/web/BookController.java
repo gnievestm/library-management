@@ -6,10 +6,7 @@ import com.teamcubation.librarymanagement.domain.exceptions.book.BookAlreadyBorr
 import com.teamcubation.librarymanagement.domain.exceptions.book.BookSomeEmptyAttributeException;
 import com.teamcubation.librarymanagement.domain.exceptions.book.NotExistBookException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class BookController {
     }
 
     @GetMapping(path = "/api/books")
-    public ResponseEntity<List<Book>> getAllBooks(){
+    public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(bookPort.getAllBooks());
     }
 
@@ -31,13 +28,16 @@ public class BookController {
         bookPort.addBook(book);
         return ResponseEntity.ok(book);
     }
-    @PostMapping(path = "/api/books/borrowedBooks")
-    public ResponseEntity<Integer> addBorrowedBook(@RequestBody int idBook) throws BookAlreadyBorrowed, NotExistBookException {
-        bookPort.addBorrowedBook(idBook);
-        return ResponseEntity.ok(idBook);
+
+    @PostMapping(path = "/api/books/{id}/borrowBook")
+    public ResponseEntity<Integer> addBorrowedBook(@PathVariable("id") int id) throws BookAlreadyBorrowed, NotExistBookException {
+        bookPort.addBorrowedBook(id);
+        return ResponseEntity.ok(id);
     }
-    @GetMapping(path = "/api/books/borrowedBooks")
-    public ResponseEntity<List<Book>> getBorrowedBooks(){
-        return ResponseEntity.ok(bookPort.getBorrowedBooks());
+
+    @GetMapping(path = "/api/books?borrowedBooks={borrowedValue}")
+    public ResponseEntity<List<Book>> getBorrowedBooks(@PathVariable("borrowedValue") String borrowedValue) {
+        if (borrowedValue.equals("true")) return ResponseEntity.ok(bookPort.getBorrowedBooks());
+        return null;
     }
 }

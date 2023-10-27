@@ -10,10 +10,13 @@ import com.teamcubation.librarymanagement.domain.exceptions.magazine.MagazineNot
 import java.util.List;
 
 public interface IMagazinePort {
-    public List<BorrowMagazine> getAllMagazine();
+    List<BorrowMagazine> getAllMagazine();
 
-    public Magazine searchMagazine(String name) throws MagazineNotExistException;
-    public boolean addMagazine(Magazine magazine) throws MagazineAttributeMissingException;
-    public boolean borrowMagazine(int id) throws MagazineNotAvailableException;
-    public boolean returnMagazine(int id);
+    Magazine searchMagazine(String name) throws MagazineNotExistException;
+
+    boolean addMagazine(Magazine magazine) throws MagazineAttributeMissingException;
+
+    boolean borrowMagazine(int id) throws MagazineNotAvailableException;
+
+    boolean returnMagazine(int id);
 }
