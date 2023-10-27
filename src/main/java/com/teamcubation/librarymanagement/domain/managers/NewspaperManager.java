@@ -9,8 +9,8 @@ import java.util.Objects;
 
 public class NewspaperManager {
 
-    private List<Newspaper> catalogue;
-    private List<Newspaper> inUse;
+    private final List<Newspaper> catalogue;
+    private final List<Newspaper> inUse;
 
     public NewspaperManager() {
         catalogue = new ArrayList<>();
@@ -18,7 +18,7 @@ public class NewspaperManager {
     }
 
     public boolean addNewspaper(Newspaper newEntry) throws MissingDateOrHeadlineException, NewspaperDuplicatedException {
-        if (newEntry.getHeadline().equals("") || newEntry.getDate().equals("")){
+        if (newEntry.getHeadline().equals("") || newEntry.getDate().equals("")) {
             throw new MissingDateOrHeadlineException();
         } else if (catalogue.contains(newEntry)) {
             throw new NewspaperDuplicatedException();
@@ -45,7 +45,7 @@ public class NewspaperManager {
     }
 
     public boolean searchForNewspaperHeadline(String headline) throws MissingDateOrHeadlineException, NewspaperNotFoundException {
-        if (catalogue.stream().noneMatch(Newspaper -> Objects.equals(Newspaper.getHeadline(), headline))){
+        if (catalogue.stream().noneMatch(Newspaper -> Objects.equals(Newspaper.getHeadline(), headline))) {
             throw new NewspaperNotFoundException();
         }
         return true;
@@ -59,7 +59,6 @@ public class NewspaperManager {
         catalogue.add(newspaper);
         return true;
     }
-
 
 
 }

@@ -46,7 +46,7 @@ public class Book {
     }
 
     public String toString() {
-        return "Book{" + "id="+bookId+", title=" + this.title + ",author='" + this.author + '\'' + ",yearOfPublishing='" + this.yearOfPublishing + '\'' + '}';
+        return "Book{" + "id=" + bookId + ", title=" + this.title + ",author='" + this.author + '\'' + ",yearOfPublishing='" + this.yearOfPublishing + '\'' + '}';
     }
 
     @Override

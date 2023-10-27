@@ -13,7 +13,7 @@ import java.util.List;
 public class RoomService implements IRoomPort {
 
     private final RoomManager roomManager;
-    
+
     public RoomService() {
         this.roomManager = new RoomManager();
     }
@@ -29,7 +29,7 @@ public class RoomService implements IRoomPort {
 
     @Override
     public List<Room> getAllRooms() {
-        List <Room> rooms = new ArrayList<>();
+        List<Room> rooms = new ArrayList<>();
         rooms.addAll(this.roomManager.getAvailableRooms());
         rooms.addAll(this.roomManager.getReservedRooms());
         return rooms;
