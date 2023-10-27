@@ -10,15 +10,10 @@ import java.util.List;
 @Service
 public class BookService implements IBookPort {
 
-    static BookService instance;
-    private BookManager BookManager;
 
-    public static BookService getInstance() {
-        if (instance == null) instance = new BookService();
-        return instance;
-    }
+    private final BookManager BookManager;
 
-    private BookService() {
+    public BookService() {
         this.BookManager = new BookManager();
     }
 
@@ -71,10 +66,13 @@ public class BookService implements IBookPort {
             throw new SearchABookByEmptyTitle();
         return BookManager.searchBookByTitle(title);
     }
-    public void returnBorrowedBook(Book book) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
-        if(!BookManager.existBook(book.getBookId())){
+    public void returnBorrowedBook(int idBook) throws NotExistBookException, ReturnABookthatIsNotBorrowed {
+        if(!BookManager.existBook(idBook)){
             throw new NotExistBookException();
         }
-        BookManager.returnBorrowedBook(book);
+        if(!BookManager.isBookBorrowed((idBook))){
+            throw new ReturnABookthatIsNotBorrowed();
+        }
+        BookManager.returnBorrowedBook(idBook);
     }
 }

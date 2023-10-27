@@ -73,13 +73,15 @@ public class BookManager {
         return false;
     }
 
-    public boolean returnBorrowedBook(Book book) throws ReturnABookthatIsNotBorrowed {
-        if (!borrowedBooks.contains(book)) {
-            throw new ReturnABookthatIsNotBorrowed();
+    public boolean returnBorrowedBook(int idBook) throws ReturnABookthatIsNotBorrowed {
+        for(Book book:borrowedBooks){
+            if(book.getBookId()==idBook){
+                borrowedBooks.remove(book);
+                availableBooks.add(book);
+                return true;
+            }
         }
-        borrowedBooks.remove(book);
-        availableBooks.add(book);
-        return true;
+        return false;
     }
 
 }
